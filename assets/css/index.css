@@ -1,0 +1,32 @@
+/* --- Brand Core Smooth Responsive Scrolling Animation --- */
+
+@keyframes marqueeLeftToRight {
+    0% { transform: translateX(-50%); }
+    100% { transform: translateX(0); }
+}
+
+@keyframes marqueeRightToLeft {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* Linear infinitely rolling timelines */
+.brand-marquee-row-right {
+    animation: marqueeLeftToRight 32s linear infinite;
+}
+
+.brand-marquee-row-left {
+    animation: marqueeRightToLeft 32s linear infinite;
+}
+
+/* Smoothly freezes animation speed on mouse hover */
+.brand-track-container:hover .brand-marquee-row-right,
+.brand-track-container:hover .brand-marquee-row-left {
+    animation-play-state: paused;
+}
+/* Custom Global Text Enhancements for Editorial Typography & Layout Performance */
+section {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}

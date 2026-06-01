@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Square One - Premium Responsive Split Framework</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    
+    <style>
+        /* Base Theme Settings */
+        :root {
+            --bg-black: #000000;
+            --text-white: #ffffff;
+        }
+
+        body {
+            background-color: var(--bg-black);
+            color: var(--text-white);
+            font-family: "Bricolage Grotesque", sans-serif;
+            font-optical-sizing: auto;
+            font-variation-settings: "wdth" 100;
+        }
+
+        /* Pure CSS Marquee Core Animations */
+        @keyframes marqueeUp {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50%); }
+        }
+
+        @keyframes marqueeDown {
+            0% { transform: translateY(-50%); }
+            100% { transform: translateY(0); }
+        }
+
+        .animate-marquee-up {
+            animation: marqueeUp 24s linear infinite;
+        }
+
+        .animate-marquee-down {
+            animation: marqueeDown 24s linear infinite;
+        }
+
+        /* Hover behavior to pause animation smoothly */
+        .marquee-container:hover .animate-marquee-up,
+        .marquee-container:hover .animate-marquee-down {
+            animation-play-state: paused;
+        }
+
+        /* Hide default scrollbars */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen overflow-x-hidden flex flex-col justify-between relative">
+
+    <div id="demo-modal" class="fixed inset-0 w-full h-screen bg-black/60 backdrop-blur-md z-[1000] hidden items-center justify-center px-4">
+        
+        <div id="modal-card" class="bg-[#fcfdfa] text-black w-full max-w-2xl rounded-3xl p-8 md:p-12 shadow-2xl relative transform translate-y-8 opacity-0">
+            
+            <button id="modal-close-btn" class="absolute top-6 right-6 p-2 text-neutral-400 hover:text-black transition focus:outline-none" aria-label="Close Modal">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+
+            <div class="text-center mb-10">
+                <h2 class="text-3xl md:text-4xl font-normal tracking-tight text-neutral-900">
+                    Book a demo <span class="font-light italic text-neutral-500">with our experts</span>
+                </h2>
+            </div>
+
+            <form onsubmit="event.preventDefault();" class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    
+                    <div class="flex flex-col space-y-1.5">
+                        <label class="text-[11px] font-bold tracking-wider text-neutral-400 uppercase pl-1">Business Email</label>
+                        <input type="email" placeholder="Enter your business email" class="w-full bg-transparent border border-neutral-300 rounded-full px-5 py-3.5 text-sm text-neutral-800 placeholder-neutral-400 focus:outline-none focus:border-black transition" required>
+                    </div>
+
+                    <div class="flex flex-col space-y-1.5">
+                        <label class="text-[11px] font-bold tracking-wider text-neutral-400 uppercase pl-1">Full Name</label>
+                        <input type="text" placeholder="Enter your full name" class="w-full bg-transparent border border-neutral-300 rounded-full px-5 py-3.5 text-sm text-neutral-800 placeholder-neutral-400 focus:outline-none focus:border-black transition" required>
+                    </div>
+
+                    <div class="flex flex-col space-y-1.5">
+                        <label class="text-[11px] font-bold tracking-wider text-neutral-400 uppercase pl-1">Company Size</label>
+                        <div class="relative">
+                            <select class="w-full bg-transparent border border-neutral-300 rounded-full px-5 py-3.5 text-sm text-neutral-500 appearance-none focus:outline-none focus:border-black transition cursor-pointer">
+                                <option value="" disabled selected>Select the size of your company</option>
+                                <option value="1-10">1 - 10 employees</option>
+                                <option value="11-50">11 - 50 employees</option>
+                                <option value="51-200">51 - 200 employees</option>
+                                <option value="201+">201+ employees</option>
+                            </select>
+                            <div class="absolute inset-y-0 right-5 flex items-center pointer-events-none text-neutral-400">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col space-y-1.5">
+                        <label class="text-[11px] font-bold tracking-wider text-neutral-400 uppercase pl-1">Company Name</label>
+                        <input type="text" placeholder="Enter your company name" class="w-full bg-transparent border border-neutral-300 rounded-full px-5 py-3.5 text-sm text-neutral-800 placeholder-neutral-400 focus:outline-none focus:border-black transition" required>
+                    </div>
+
+                </div>
+
+                <div class="flex justify-end pt-4">
+                    <button type="submit" class="bg-[#032b24] text-white font-bold px-8 py-3.5 rounded-full text-sm hover:bg-black transition duration-300 shadow-md">
+                        Book a demo
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+    <div id="mobile-menu" class="fixed inset-0 w-full h-screen bg-black z-[999] hidden flex-col justify-between px-8 py-12 lg:hidden">
+        
+        <div class="flex justify-between items-center w-full">
+            <span class="text-2xl font-extrabold tracking-tight text-white">Square one</span>
+            
+            <button id="menu-close-btn" class="p-2 text-white hover:text-neutral-400 transition focus:outline-none" aria-label="Close Menu">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+
+        <nav class="flex flex-col space-y-8 text-4xl font-bold tracking-tight text-left my-auto w-full">
+            <a href="#" class="mobile-nav-link text-neutral-200 hover:text-white transition duration-300 flex items-center justify-between group py-2 border-b border-neutral-900">
+                <span>Services</span> <span class="text-2xl text-neutral-500 group-hover:text-white transition">→</span>
+            </a>
+            <a href="#" class="mobile-nav-link text-neutral-200 hover:text-white transition duration-300 flex items-center justify-between group py-2 border-b border-neutral-900">
+                <span>Our work</span> <span class="text-2xl text-neutral-500 group-hover:text-white transition">→</span>
+            </a>
+            <a href="#" class="mobile-nav-link text-neutral-200 hover:text-white transition duration-300 flex items-center justify-between group py-2 border-b border-neutral-900">
+                <span>Why us</span> <span class="text-2xl text-neutral-500 group-hover:text-white transition">→</span>
+            </a>
+            <a href="#" class="mobile-nav-link text-neutral-200 hover:text-white transition duration-300 flex items-center justify-between group py-2 border-b border-neutral-900">
+                <span>Pricing</span> <span class="text-2xl text-neutral-500 group-hover:text-white transition">→</span>
+            </a>
+        </nav>
+
+        <div class="mobile-nav-footer w-full flex flex-col space-y-4 pt-6 border-t border-neutral-900">
+            <button class="open-demo-trigger w-full bg-white text-black font-extrabold py-4 rounded-full text-center hover:bg-neutral-200 transition duration-300">
+                Book a demo
+            </button>
+            <button class="w-full text-center text-neutral-400 font-semibold py-2 hover:text-white transition">
+                Sign in
+            </button>
+        </div>
+    </div>
+
+    <header class="w-full sticky top-0 z-50 px-6 md:px-12 py-6" style="background-color: var(--bg-black);">
+        <div class="max-w-7xl mx-auto flex justify-between items-center w-full gap-4 relative">
+            
+            <div class="text-2xl font-extrabold tracking-tight text-white cursor-pointer shrink-0">
+                Square one
+            </div>
+            
+            <nav class="hidden lg:flex items-center space-x-6 xl:space-x-8 text-sm font-medium text-neutral-400 whitespace-nowrap overflow-hidden">
+                <a href="#" class="hover:text-white transition duration-200 flex items-center gap-1">Services </a>
+                <a href="#" class="hover:text-white transition duration-200">Our work</a>
+                <a href="#" class="hover:text-white transition duration-200 flex items-center gap-1">Why us </a>
+                <a href="#" class="hover:text-white transition duration-200">Pricing</a>
+            </nav>
+            
+            <div class="flex items-center space-x-4 shrink-0">
+                <button class="hidden sm:inline-block text-neutral-300 font-semibold text-sm hover:text-white transition duration-200">
+                    Sign in
+                </button>
+                <button class="open-demo-trigger hidden sm:inline-block bg-white text-black font-bold px-6 py-2.5 rounded-full text-sm hover:bg-neutral-200 transition duration-300 shadow-md">
+                    Book a demo
+                </button>
+
+                <button id="menu-open-btn" class="lg:hidden flex items-center justify-center p-2 text-white hover:text-neutral-400 transition focus:outline-none z-40" aria-label="Open Menu">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+
+        </div>
+    </header>
+
+    <main class="w-full flex-grow relative overflow-hidden flex items-center py-12 lg:py-0">
+        <section class="w-full grid grid-cols-1 lg:grid-cols-12 items-center gap-12 lg:gap-0">
+            
+            <div class="lg:col-span-6 px-6 md:px-12 lg:pr-12 w-full flex justify-end">
+                <div class="w-full max-w-[580px] lg:w-[580px] space-y-6 z-10">
+                    <h1 class="text-5xl sm:text-6xl md:text-7xl font-extrabold leading-[1.05] tracking-tight text-white">
+                        Your creative <br>
+                        <span class="font-light text-neutral-400">team’s creative</span> <br>
+                        <span>team™</span>
+                    </h1>
+                    <p class="text-neutral-400 text-base sm:text-lg max-w-md leading-relaxed font-normal">
+                        Scale your in-house creative team with top global talent powered by industry-leading AI workflows, delivering anything you can imagine fast and affordably.
+                    </p>
+                    <div class="pt-4">
+                        <button class="open-demo-trigger bg-white text-black font-extrabold px-8 py-4 rounded-full text-md hover:bg-neutral-200 transition duration-300 shadow-xl">
+                            Book a demo
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-6 w-full px-6 md:px-12 lg:px-0">
+                <div class="marquee-container h-[55vh] lg:h-[85vh] w-full grid grid-cols-3 gap-4 relative overflow-hidden lg:rounded-l-2xl pl-0 lg:pl-4">
+                    
+                    <div class="flex flex-col gap-4 animate-marquee-up" id="col-1"></div>
+
+                    <div class="flex flex-col gap-4 animate-marquee-down" id="col-2"></div>
+
+                    <div class="flex flex-col gap-4 animate-marquee-up" id="col-3"></div>
+
+                    <div class="absolute top-0 left-0 w-full h-24 pointer-events-none z-20" style="background: linear-gradient(to bottom, var(--bg-black), transparent);"></div>
+                    <div class="absolute bottom-0 left-0 w-full h-24 pointer-events-none z-20" style="background: linear-gradient(to top, var(--bg-black), transparent);"></div>
+                </div>
+            </div>
+
+        </section>
+
+        
+    </main>
+
+    <footer class="py-2"></footer>
+
+    <script>
+        // 1. ORIGINAL PORTFOLIO MOCK DATABASE FROM YOUR SCRIPT.JS
+        const mockImages = [
+            { bg: 'bg-blue-600', text: 'Wilson Custom Basketball', img: 'https://images.unsplash.com/photo-1546519638-68e109498ffc?w=400&auto=format&fit=crop&q=60' },
+            { bg: 'bg-orange-600', text: 'GRUBHUB Food Branding', img: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&auto=format&fit=crop&q=60' },
+            { bg: 'bg-teal-700', text: 'Oyster Business Delivery', img: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&auto=format&fit=crop&q=60' },
+            { bg: 'bg-purple-600', text: 'SUBLIM Dynamic Packaging', img: 'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=400&auto=format&fit=crop&q=60' },
+            { bg: 'bg-pink-600', text: 'Outbrain Analytics Dashboard', img: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&auto=format&fit=crop&q=60' },
+            { bg: 'bg-indigo-800', text: 'Pernod Ricard App Design', img: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&auto=format&fit=crop&q=60' }
+        ];
+
+        // 2. CARD GENERATOR ENGINE
+        function createCard(item) {
+            return `
+                <div class="w-full aspect-[3/4] ${item.bg} rounded-2xl overflow-hidden relative group cursor-pointer shadow-md transform transition duration-500 hover:scale-[1.02]">
+                    <img src="${item.img}" alt="${item.text}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition duration-300">
+                    <div class="absolute inset-0 bg-black/40 p-4 flex flex-col justify-end opacity-0 group-hover:opacity-100 transition duration-300">
+                        <p class="text-xs font-bold tracking-wider uppercase text-emerald-400">Project</p>
+                        <h4 class="text-sm font-semibold text-white leading-tight mt-1">${item.text}</h4>
+                    </div>
+                </div>
+            `;
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            
+            // --- POPULATE COLUMNS LOGIC ---
+            const col1 = document.getElementById('col-1');
+            const col2 = document.getElementById('col-2');
+            const col3 = document.getElementById('col-3');
+
+            const itemsCol1 = [...mockImages];
+            const itemsCol2 = [...mockImages].reverse();
+            const itemsCol3 = [mockImages[3], mockImages[4], mockImages[5], mockImages[0], mockImages[1], mockImages[2]];
+
+            function populateColumn(element, items) {
+                if(!element) return;
+                // Double layout for seamless infinite looping illusion
+                let htmlContent = items.map(item => createCard(item)).join('');
+                htmlContent += items.map(item => createCard(item)).join('');
+                element.innerHTML = htmlContent;
+            }
+
+            populateColumn(col1, itemsCol1);
+            populateColumn(col2, itemsCol2);
+            populateColumn(col3, itemsCol3);
+
+            // --- NAVIGATION AND INTERACTIVE CONTROLS ELEMENTS ---
+            const menuOpenBtn = document.getElementById("menu-open-btn");
+            const menuCloseBtn = document.getElementById("menu-close-btn");
+            const mobileMenu = document.getElementById("mobile-menu");
+            const mobileLinks = document.querySelectorAll(".mobile-nav-link");
+            const mobileFooter = document.querySelector(".mobile-nav-footer");
+
+            const demoModal = document.getElementById("demo-modal");
+            const modalCard = document.getElementById("modal-card");
+            const modalCloseBtn = document.getElementById("modal-close-btn");
+            const openDemoTriggers = document.querySelectorAll(".open-demo-trigger");
+
+            // ==========================================
+            // GSAP TIMELINE 1: MOBILE OVERLAY MENU
+            // ==========================================
+            const menuTl = gsap.timeline({ paused: true });
+            menuTl.set(mobileMenu, { display: "flex" }) 
+                  .to(mobileMenu, {
+                      opacity: 1,
+                      duration: 0.35,
+                      ease: "power2.out"
+                  })
+                  .fromTo(mobileLinks, 
+                      { y: 25, opacity: 0 }, 
+                      { y: 0, opacity: 1, stagger: 0.08, duration: 0.35, ease: "power2.out" }, 
+                      "-=0.15"
+                  )
+                  .fromTo(mobileFooter, 
+                      { y: 15, opacity: 0 }, 
+                      { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, 
+                      "-=0.15"
+                  );
+
+            menuOpenBtn.addEventListener("click", () => {
+                document.body.style.overflow = "hidden";
+                menuTl.play();
+            });
+
+            menuCloseBtn.addEventListener("click", () => {
+                document.body.style.overflow = "auto";
+                menuTl.reverse();
+            });
+
+            mobileLinks.forEach(link => {
+                link.addEventListener("click", () => {
+                    document.body.style.overflow = "auto";
+                    menuTl.reverse();
+                });
+            });
+
+            // ==========================================
+            // GSAP TIMELINE 2: PREMIUM BLUR DEMO MODAL
+            // ==========================================
+            const modalTl = gsap.timeline({ paused: true });
+            modalTl.set(demoModal, { display: "flex" })
+                   .to(demoModal, {
+                       opacity: 1,
+                       duration: 0.3,
+                       ease: "power1.out"
+                   })
+                   .fromTo(modalCard, {
+                       opacity: 0,
+                       y: 35,
+                       scale: 0.96
+                   }, {
+                       opacity: 1,
+                       y: 0,
+                       scale: 1,
+                       duration: 0.4,
+                       ease: "power3.out"
+                   }, "-=0.15");
+
+            // Bind triggers to open Demo Modal gracefully
+            openDemoTriggers.forEach(btn => {
+                btn.addEventListener("click", () => {
+                    // Agar mobile overlay open ho, toh use foran revert karein bina delay ke
+                    if (mobileMenu.style.display === "flex") {
+                        menuTl.reverse();
+                    }
+                    document.body.style.overflow = "hidden"; 
+                    modalTl.play();
+                });
+            });
+
+            // Close Modal Event
+            modalCloseBtn.addEventListener("click", () => {
+                document.body.style.overflow = "auto";
+                modalTl.reverse();
+            });
+
+            // Click outside the modal box container to dismiss look
+            demoModal.addEventListener("click", (e) => {
+                if (e.target === demoModal) {
+                    document.body.style.overflow = "auto";
+                    modalTl.reverse();
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
