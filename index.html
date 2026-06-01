@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bricolage Hero Section - Semantic Split Layout</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        /* Base Theme Settings */
+        :root {
+            --bg-black: #000000;
+            --text-white: #ffffff;
+        }
+
+        body {
+            background-color: var(--bg-black);
+            color: var(--text-white);
+            font-family: "Bricolage Grotesque", sans-serif;
+            font-optical-sizing: auto;
+            font-variation-settings: "wdth" 100;
+        }
+
+        /* Pure CSS Marquee Core Animations */
+        @keyframes marqueeUp {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50%); }
+        }
+
+        @keyframes marqueeDown {
+            0% { transform: translateY(-50%); }
+            100% { transform: translateY(0); }
+        }
+
+        .animate-marquee-up {
+            animation: marqueeUp 24s linear infinite;
+        }
+
+        .animate-marquee-down {
+            animation: marqueeDown 24s linear infinite;
+        }
+
+        /* Hover behavior to pause animation smoothly */
+        .marquee-container:hover .animate-marquee-up,
+        .marquee-container:hover .animate-marquee-down {
+            animation-play-state: paused;
+        }
+
+        /* Hide default scrollbars */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen overflow-x-hidden flex flex-col justify-between">
+
+    <header class="w-full sticky top-0 z-50 px-6 md:px-12 py-6" style="background-color: var(--bg-black);">
+        <div class="max-w-7xl mx-auto flex justify-between items-center w-full gap-4">
+            
+            <div class="text-2xl font-extrabold tracking-tight text-white cursor-pointer shrink-0">
+                superside
+            </div>
+            
+            <nav class="hidden lg:flex items-center space-x-6 xl:space-x-8 text-sm font-medium text-neutral-400 whitespace-nowrap overflow-hidden">
+                <a href="#" class="hover:text-white transition duration-200 flex items-center gap-1">Services <span class="text-[10px]">▼</span></a>
+                <a href="#" class="hover:text-white transition duration-200">Our work</a>
+                <a href="#" class="hover:text-white transition duration-200 flex items-center gap-1">Why us <span class="text-[10px]">▼</span></a>
+                <a href="#" class="hover:text-white transition duration-200 flex items-center gap-1">Resources <span class="text-[10px]">▼</span></a>
+                <a href="#" class="hover:text-white transition duration-200">Pricing</a>
+                <a href="#" class="hover:text-white transition duration-200">Enterprise</a>
+            </nav>
+            
+            <div class="flex items-center space-x-4 shrink-0">
+                <button class="text-neutral-300 font-semibold text-sm hover:text-white transition duration-200">
+                    Sign in
+                </button>
+                <button class="bg-white text-black font-bold px-6 py-2.5 rounded-full text-sm hover:bg-neutral-200 transition duration-300 shadow-md">
+                    Book a demo
+                </button>
+            </div>
+
+        </div>
+    </header>
+
+    <main class="w-full flex-grow relative overflow-hidden flex items-center py-12 lg:py-0">
+        
+        <section class="w-full grid grid-cols-1 lg:grid-cols-12 items-center gap-12 lg:gap-0">
+            
+            <div class="lg:col-span-6 px-6 md:px-12 lg:pr-12 w-full flex justify-end">
+                <div class="w-full max-w-[580px] lg:w-[580px] space-y-6 z-10">
+                    <h1 class="text-5xl sm:text-6xl md:text-7xl font-extrabold leading-[1.05] tracking-tight text-white">
+                        Your creative <br>
+                        <span class="font-light text-neutral-400">team’s creative</span> <br>
+                        <span>team™</span>
+                    </h1>
+                    <p class="text-neutral-400 text-base sm:text-lg max-w-md leading-relaxed font-normal">
+                        Scale your in-house creative team with top global talent powered by industry-leading AI workflows, delivering anything you can imagine fast and affordably.
+                    </p>
+                    <div class="pt-4">
+                        <button class="bg-white text-black font-extrabold px-8 py-4 rounded-full text-md hover:bg-neutral-200 transition duration-300 shadow-xl">
+                            Book a demo
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-6 w-full px-6 md:px-12 lg:px-0">
+                <div class="marquee-container h-[55vh] lg:h-[85vh] w-full grid grid-cols-3 gap-4 relative overflow-hidden lg:rounded-l-2xl pl-0 lg:pl-4">
+                    
+                    <div class="flex flex-col gap-4 animate-marquee-up">
+                        <div class="w-full aspect-[3/4] bg-neutral-900 border border-neutral-800 rounded-2xl p-4 flex flex-col justify-end min-h-[140px] md:min-h-[200px]">
+                            <span class="text-xs font-bold text-neutral-500 uppercase">Wilson</span>
+                            <h3 class="text-sm font-bold text-white mt-1">Custom Basketball</h3>
+                        </div>
+                        <div class="w-full aspect-[3/4] bg-neutral-800 rounded-2xl p-4 flex flex-col justify-end min-h-[140px] md:min-h-[200px]">
+                            <span class="text-xs font-bold text-neutral-400 uppercase">Grubhub</span>
+                            <h3 class="text-sm font-bold text-white mt-1">Food Branding</h3>
+                        </div>
+                        <div class="w-full aspect-[3/4] bg-neutral-900 border border-neutral-800 rounded-2xl p-4 flex flex-col justify-end min-h-[140px] md:min-h-[200px]">
+                            <span class="text-xs font-bold text-neutral-500 uppercase">Sublim</span>
+                            <h3 class="text-sm font-bold text-white mt-1">Packaging UI</h3>
+                        </div>
+                        <div class="w-full aspect-[3/4] bg-neutral-900 border border-neutral-800 rounded-2xl p-4 flex flex-col justify-end min-h-[140px] md:min-h-[200px]">
+                            <span class="text-xs font-bold text-neutral-500 uppercase">Wilson</span>
+                            <h3 class="text-sm font-bold text-white mt-1">Custom Basketball</h3>
+                        </div>
+                        <div class="w-full aspect-[3/4] bg-neutral-800 rounded-2xl p-4 flex flex-col justify-end min-h-[140px] md:min-h-[200px]">
+                            <span class="text-xs font-bold text-neutral-400 uppercase">Grubhub</span>
+                            <h3 class="text-sm font-bold text-white mt-1">Food Branding</h3>
+                        </div>
+                        <div class="w-full aspect-[3/4] bg-neutral-900 border border-neutral-800 rounded-2xl p-4 flex flex-col justify-end min-h-[140px] md:min-h-[200px]">
+                            <span class="text-xs font-bold text-neutral-500 uppercase">Sublim</span>
+                            <h3 class="text-sm font-bold text-white mt-1">Packaging UI</h3>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col gap-4 animate-marquee-down">
+                        <div class="w-full aspect-[3/4] bg-neutral-800 rounded-2xl p-4 flex flex-col justify-end min-h-[140px] md:min-h-[200px]">
+                            <span class="text-xs font-bold text-neutral-400 uppercase">Outbrain</span>
+                            <h3 class="text-sm font-bold text-white mt-1">Webinar Assets</h3>
+                        </div>
+                        <div class="w-full aspect-[3/4] bg-neutral-900 border border-neutral-800 rounded-2xl p-4 flex flex-col justify-end min-h-[140px] md:min-h-[200px]">
+                            <span class="text-xs font-bold text-neutral-500 uppercase">Oyster</span>
+                            <h3 class="text-sm font-bold text-white mt-1">Delivering Impact</h3>
+                        </div>
+                        <div class="w-full aspect-[3/4] bg-neutral-800 rounded-2xl p-4 flex flex-col justify-end min-h-[140px] md:min-h-[200px]">
+                            <span class="text-xs font-bold text-neutral-400 uppercase">Marqeta</span>
+                            <h3 class="text-sm font-bold text-white mt-1">Digital Identity</h3>
+                        </div>
+                        <div class="w-full aspect-[3/4] bg-neutral-800 rounded-2xl p-4 flex flex-col justify-end min-h-[140px] md:min-h-[200px]">
+                            <span class="text-xs font-bold text-neutral-400 uppercase">Outbrain</span>
+                            <h3 class="text-sm font-bold text-white mt-1">Webinar Assets</h3>
+                        </div>
+                        <div class="w-full aspect-[3/4] bg-neutral-900 border border-neutral-800 rounded-2xl p-4 flex flex-col justify-end min-h-[140px] md:min-h-[200px]">
+                            <span class="text-xs font-bold text-neutral-500 uppercase">Oyster</span>
+                            <h3 class="text-sm font-bold text-white mt-1">Delivering Impact</h3>
+                        </div>
+                        <div class="w-full aspect-[3/4] bg-neutral-800 rounded-2xl p-4 flex flex-col justify-end min-h-[140px] md:min-h-[200px]">
+                            <span class="text-xs font-bold text-neutral-400 uppercase">Marqeta</span>
+                            <h3 class="text-sm font-bold text-white mt-1">Digital Identity</h3>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col gap-4 animate-marquee-up">
+                        <div class="w-full aspect-[3/4] bg-neutral-900 border border-neutral-800 rounded-2xl p-4 flex flex-col justify-end min-h-[140px] md:min-h-[200px]">
+                            <span class="text-xs font-bold text-neutral-500 uppercase">Pernod</span>
+                            <h3 class="text-sm font-bold text-white mt-1">Bartender App</h3>
+                        </div>
+                        <div class="w-full aspect-[3/4] bg-neutral-800 rounded-2xl p-4 flex flex-col justify-end min-h-[140px] md:min-h-[200px]">
+                            <span class="text-xs font-bold text-neutral-400 uppercase">Creatwell</span>
+                            <h3 class="text-sm font-bold text-white mt-1">UI/UX Design</h3>
+                        </div>
+                        <div class="w-full aspect-[3/4] bg-neutral-900 border border-neutral-800 rounded-2xl p-4 flex flex-col justify-end min-h-[140px] md:min-h-[200px]">
+                            <span class="text-xs font-bold text-neutral-500 uppercase">Nasdaq</span>
+                            <h3 class="text-sm font-bold text-white mt-1">Motion Graphics</h3>
+                        </div>
+                        <div class="w-full aspect-[3/4] bg-neutral-900 border border-neutral-800 rounded-2xl p-4 flex flex-col justify-end min-h-[140px] md:min-h-[200px]">
+                            <span class="text-xs font-bold text-neutral-500 uppercase">Pernod</span>
+                            <h3 class="text-sm font-bold text-white mt-1">Bartender App</h3>
+                        </div>
+                        <div class="w-full aspect-[3/4] bg-neutral-800 rounded-2xl p-4 flex flex-col justify-end min-h-[140px] md:min-h-[200px]">
+                            <span class="text-xs font-bold text-neutral-400 uppercase">Creatwell</span>
+                            <h3 class="text-sm font-bold text-white mt-1">UI/UX Design</h3>
+                        </div>
+                        <div class="w-full aspect-[3/4] bg-neutral-900 border border-neutral-800 rounded-2xl p-4 flex flex-col justify-end min-h-[140px] md:min-h-[200px]">
+                            <span class="text-xs font-bold text-neutral-500 uppercase">Nasdaq</span>
+                            <h3 class="text-sm font-bold text-white mt-1">Motion Graphics</h3>
+                        </div>
+                    </div>
+
+                    <div class="absolute top-0 left-0 w-full h-24 pointer-events-none z-20" style="background: linear-gradient(to bottom, var(--bg-black), transparent);"></div>
+                    <div class="absolute bottom-0 left-0 w-full h-24 pointer-events-none z-20" style="background: linear-gradient(to top, var(--bg-black), transparent);"></div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <footer class="py-2"></footer>
+
+</body>
+</html>
