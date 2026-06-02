@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Work — Square One</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/index.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Plyr CSS & JS (Premium Video Player Integration) -->
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+    <script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
+    
+    <!-- GSAP Core & ScrollTrigger Core Engines -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    
+    <style>
+        * {
+            font-family: "Inter Tight", sans-serif;
+        }
+        :root {
+            --bg-page: #FCFDFA; 
+            --plyr-color-main: #000000;
+            --plyr-video-control-background-hover: rgba(0, 0, 0, 0.08);
+        }
+        body {
+            background-color: var(--bg-page);
+            color: #000000;
+            font-optical-sizing: auto;
+            font-variation-settings: "wdth" 100;
+        }
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Plyr Interactive Background Overlay Modes */
+        .bg-video-mode .plyr__controls,
+        .bg-video-mode .plyr__volume {
+            opacity: 0 !important;
+            pointer-events: none !important;
+            transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .interactive-mode .plyr__controls {
+            opacity: 1 !important;
+            pointer-events: auto !important;
+        }
+        
+        /* High-Performance Smooth Marquee Layout System */
+        .marquee-container {
+            display: flex;
+            overflow: hidden;
+            user-select: none;
+            width: 100%;
+        }
+        .marquee-wrapper {
+            display: flex;
+            white-space: nowrap;
+            will-change: transform;
+        }
+    </style>
+</head>
+<body class="min-h-screen overflow-x-hidden flex flex-col justify-between relative">
+
+    <!-- UNIVERSAL DEMO FORM MODAL -->
+    <div id="demo-modal" class="fixed inset-0 w-full h-screen bg-black/60 backdrop-blur-md z-[1000] hidden items-center justify-center px-4">
+        <div id="modal-card" class="bg-[#fcfdfa] text-black w-full max-w-2xl rounded-3xl p-8 md:p-12 shadow-2xl relative transform translate-y-8 opacity-0">
+            <button id="modal-close-btn" class="absolute top-6 right-6 p-2 text-neutral-400 hover:text-black transition focus:outline-none" aria-label="Close Modal">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <div class="text-center mb-10">
+                <h2 class="text-3xl md:text-4xl tracking-tight text-neutral-900">
+                    Book a demo <span class="font-light italic text-neutral-500">with our experts</span>
+                </h2>
+            </div>
+            <form onsubmit="event.preventDefault();" class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="flex flex-col space-y-1.5">
+                        <label class="text-[11px] font-bold tracking-wider text-neutral-400 uppercase pl-1">Business Email</label>
+                        <input type="email" placeholder="Enter your business email" class="w-full bg-transparent border border-neutral-300 rounded-full px-5 py-3.5 text-sm text-neutral-800 placeholder-neutral-400 focus:outline-none focus:border-black transition" required>
+                    </div>
+                    <div class="flex flex-col space-y-1.5">
+                        <label class="text-[11px] font-bold tracking-wider text-neutral-400 uppercase pl-1">Full Name</label>
+                        <input type="text" placeholder="Enter your full name" class="w-full bg-transparent border border-neutral-300 rounded-full px-5 py-3.5 text-sm text-neutral-800 placeholder-neutral-400 focus:outline-none focus:border-black transition" required>
+                    </div>
+                    <div class="flex flex-col space-y-1.5">
+                        <label class="text-[11px] font-bold tracking-wider text-neutral-400 uppercase pl-1">Company Size</label>
+                        <div class="relative">
+                            <select class="w-full bg-transparent border border-neutral-300 rounded-full px-5 py-3.5 text-sm text-neutral-500 appearance-none focus:outline-none focus:border-black transition cursor-pointer">
+                                <option value="" disabled selected>Select the size of your company</option>
+                                <option value="1-10">1 - 10 employees</option>
+                                <option value="11-50">11 - 50 employees</option>
+                                <option value="51-200">51 - 200 employees</option>
+                                <option value="201+">201+ employees</option>
+                            </select>
+                            <div class="absolute inset-y-0 right-5 flex items-center pointer-events-none text-neutral-400">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col space-y-1.5">
+                        <label class="text-[11px] font-bold tracking-wider text-neutral-400 uppercase pl-1">Company Name</label>
+                        <input type="text" placeholder="Enter your company name" class="w-full bg-transparent border border-neutral-300 rounded-full px-5 py-3.5 text-sm text-neutral-800 placeholder-neutral-400 focus:outline-none focus:border-black transition" required>
+                    </div>
+                </div>
+                <div class="flex justify-end pt-4">
+                    <button type="submit" class="bg-[#032b24] text-white font-bold px-8 py-3.5 rounded-full text-sm hover:bg-black transition duration-300 shadow-md">
+                        Book a demo
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- RESPONSIVE MOBILE NAVIGATION OVERLAY -->
+    <div id="mobile-menu" class="fixed inset-0 w-full h-screen bg-black z-[999] hidden flex-col justify-between px-8 py-12 lg:hidden">
+        <div class="flex justify-between items-center w-full">
+            <span class="text-2xl font-extrabold tracking-tight text-white">Square One</span>
+            <button id="menu-close-btn" class="p-2 text-white hover:text-neutral-400 transition focus:outline-none" aria-label="Close Menu">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        <nav class="flex flex-col space-y-8 text-4xl font-bold tracking-tight text-left my-auto w-full">
+            <a href="#" class="mobile-nav-link text-neutral-200 hover:text-white transition duration-300 flex items-center justify-between group py-2 border-b border-neutral-900">
+                <span>Services</span> <span class="text-2xl text-neutral-500 group-hover:text-white transition">→</span>
+            </a>
+            <a href="#" class="mobile-nav-link text-neutral-200 hover:text-white transition duration-300 flex items-center justify-between group py-2 border-b border-neutral-900">
+                <span>Our work</span> <span class="text-2xl text-neutral-500 group-hover:text-white transition">→</span>
+            </a>
+            <a href="#" class="mobile-nav-link text-neutral-200 hover:text-white transition duration-300 flex items-center justify-between group py-2 border-b border-neutral-900">
+                <span>Why us</span> <span class="text-2xl text-neutral-500 group-hover:text-white transition">→</span>
+            </a>
+            <a href="#" class="mobile-nav-link text-neutral-200 hover:text-white transition duration-300 flex items-center justify-between group py-2 border-b border-neutral-900">
+                <span>Pricing</span> <span class="text-2xl text-neutral-500 group-hover:text-white transition">→</span>
+            </a>
+        </nav>
+        <div class="mobile-nav-footer w-full flex flex-col space-y-4 pt-6 border-t border-neutral-900">
+            <button class="open-demo-trigger w-full bg-white text-black font-extrabold py-4 rounded-full text-center hover:bg-neutral-200 transition duration-300">
+                Book a demo
+            </button>
+            <button class="w-full text-center text-neutral-400 font-semibold py-2 hover:text-white transition">
+                Sign in
+            </button>
+        </div>
+    </div>
+
+    <!-- MAIN INTERACTIVE HEADER -->
+    <header class="w-full sticky top-0 z-50 px-6 md:px-12 py-5 bg-[#FCFDFA]">
+        <div class="w-full mx-auto flex justify-between items-center gap-4 relative">
+            
+            <div class="text-2xl font-extrabold tracking-tight text-black cursor-pointer shrink-0">
+                <a href="/index.html">Square One</a>
+            </div>
+            
+            <nav class="hidden lg:flex items-center space-x-6 xl:space-x-8 text-sm font-semibold text-neutral-500 whitespace-nowrap overflow-hidden">
+                <a href="#" class="hover:text-black transition duration-200">Services</a>
+                <a href="#" class="text-black transition duration-200">Our work</a>
+                <a href="#" class="hover:text-black transition duration-200">Why us</a>
+                <a href="#" class="hover:text-black transition duration-200">Pricing</a>
+            </nav>
+            
+            <div class="flex items-center space-x-4 shrink-0">
+                <button class="hidden sm:inline-block text-neutral-600 font-semibold text-sm hover:text-black transition duration-200">
+                    Sign in
+                </button>
+                <button class="open-demo-trigger hidden sm:inline-block bg-black text-white font-bold px-6 py-2.5 rounded-full text-sm hover:bg-neutral-800 transition duration-300 shadow-md">
+                    Book a demo
+                </button>
+
+                <button id="menu-open-btn" class="lg:hidden flex items-center justify-center p-2 text-black hover:text-neutral-600 transition focus:outline-none z-40" aria-label="Open Menu">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- CONTENT BODY SECTION GRID -->
+    <main class="w-full flex-grow relative overflow-hidden p-0">
+        
+        <!-- SECTION 1: CINEMATIC PLYR WORK HERO CONTAINER -->
+        <section id="our-work-hero" class="w-full bg-[#FCFDFA] pt-12 md:pt-16 pb-12 overflow-hidden relative">
+            <div class="w-full mx-auto px-6 md:px-12 lg:px-16 flex flex-col items-center justify-center">
+                
+                <div id="cinema-video-container" class="w-full max-w-5xl rounded-2xl md:rounded-3xl overflow-hidden bg-zinc-900 shadow-[0_20px_55px_-15px_rgba(0,0,0,0.07)] border border-zinc-200/30 relative bg-video-mode group">
+                    <div class="w-full h-[320px] sm:h-[460px] md:h-[600px] relative" id="plyr-container-box">
+                        <video id="player" class="w-full h-full object-cover object-center" crossorigin playsinline autoplay muted loop>
+                            <source src="assets/img/video1.mp4" type="video/mp4">
+                        </video>
+                        
+                        <!-- Floating Micro Pill Overlay Unmute Trigger Button -->
+                        <div id="video-unmute-overlay" class="absolute inset-0 bg-black/10 flex items-center justify-center cursor-pointer transition-all duration-500 z-20 group-hover:bg-black/20">
+                            <button class="bg-white/95 text-black font-semibold text-xs md:text-sm px-6 py-3 rounded-full flex items-center gap-2.5 shadow-xl hover:bg-white hover:scale-105 transition active:scale-95 border border-zinc-100">
+                                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77zM4.03 5.71L3 6.74 7.3 11H3v2h4l5 5v-6.3l4.3 4.3c-.39.29-.81.54-1.3.72v2.04c1.03-.22 1.97-.67 2.79-1.28l2.5 2.5 1.03-1.03L4.03 5.71zM12 4L9.91 6.09 12 8.18V4z"/></svg>
+                                
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 2: ADAPTIVE REAL VECTOR MARQUEE SHOWCASE (Autoplay + Scroll Speed Override Loop) -->
+        <section id="brand-marquee-showcase" class="w-full bg-[#FCFDFA] py-16 md:py-20 border-t border-zinc-100/30">
+            <div class="w-full text-center px-6 mb-12 md:mb-16">
+                <h3 class="text-xl sm:text-2xl md:text-3xl lg:text-[34px] font-normal tracking-tight max-w-4xl mx-auto text-neutral-900 leading-tight">
+                    We help the world's leading brands create standout ads and campaigns at speed—from concept to execution to results.
+                </h3>
+                <span class="text-[10px] md:text-xs font-bold tracking-[0.25em] uppercase text-neutral-400 block mt-10 md:mt-12">
+                    TRUSTED BY THE WORLD'S BIGGEST BRANDS
+                </span>
+            </div>
+
+            <!-- Custom Continuous Marquee Container Loop Layer -->
+            <div class="marquee-container opacity-85 hover:opacity-100 transition-opacity duration-300">
+                <div class="marquee-wrapper gap-16 md:gap-24 pr-16 md:pr-24 flex items-center">
+                    
+                  <!-- DATABRICKS VECTOR -->
+                    <div class="flex items-center justify-center w-28 md:w-36 h-12 text-neutral-800">
+                        <svg class="h-6 md:h-7 w-auto fill-current" viewBox="0 0 130 30"><path d="M17.4 0L3.1 8.2v16.5l14.3 8.3 14.3-8.3V8.2L17.4 0zm11 23L17.4 29.3 6.4 23V10.7l11-6.4 11 6.4V23zm-11-13.8L9.1 14l8.3 4.8 8.3-4.8-8.3-4.8z"/><text x="40" y="22" font-size="18" font-weight="bold" letter-spacing="-0.5">databricks</text></svg>
+                    </div>
+                    <!-- DROPBOX VECTOR -->
+                    <div class="flex items-center justify-center w-24 md:w-32 h-12 text-neutral-800">
+                        <svg class="h-5 md:h-6 w-auto fill-current" viewBox="0 0 120 28"><path d="M7.5 3.5L0 8.2l5.3 3.5 7.5-4.7L7.5 3.5zm0 13.5L0 21.7l5.3 3.5 7.5-4.7-5.3-3.5zm12.7-13.5l-7.5 4.7 7.5 4.7 7.5-4.7-7.5-4.7zm0 13.5l-7.5 4.7 7.5 4.7 7.5-4.7-7.5-4.7zM7.5 11.2L0 16l5.3 3.5 7.5-4.7-5.3-3.6zm12.7 0l-7.5 4.8 7.5 4.7 7.5-4.7-7.5-3.6z"/><text x="36" y="20" font-size="17" font-weight="bold" letter-spacing="0.2">Dropbox</text></svg>
+                    </div>
+                    <!-- DATABRICKS VECTOR -->
+                    <div class="flex items-center justify-center w-28 md:w-36 h-12 text-neutral-800">
+                        <svg class="h-6 md:h-7 w-auto fill-current" viewBox="0 0 130 30"><path d="M17.4 0L3.1 8.2v16.5l14.3 8.3 14.3-8.3V8.2L17.4 0zm11 23L17.4 29.3 6.4 23V10.7l11-6.4 11 6.4V23zm-11-13.8L9.1 14l8.3 4.8 8.3-4.8-8.3-4.8z"/><text x="40" y="22" font-size="18" font-weight="bold" letter-spacing="-0.5">databricks</text></svg>
+                    </div>
+                    <!-- DROPBOX VECTOR -->
+                    <div class="flex items-center justify-center w-24 md:w-32 h-12 text-neutral-800">
+                        <svg class="h-5 md:h-6 w-auto fill-current" viewBox="0 0 120 28"><path d="M7.5 3.5L0 8.2l5.3 3.5 7.5-4.7L7.5 3.5zm0 13.5L0 21.7l5.3 3.5 7.5-4.7-5.3-3.5zm12.7-13.5l-7.5 4.7 7.5 4.7 7.5-4.7-7.5-4.7zm0 13.5l-7.5 4.7 7.5 4.7 7.5-4.7-7.5-4.7zM7.5 11.2L0 16l5.3 3.5 7.5-4.7-5.3-3.6zm12.7 0l-7.5 4.8 7.5 4.7 7.5-4.7-7.5-3.6z"/><text x="36" y="20" font-size="17" font-weight="bold" letter-spacing="0.2">Dropbox</text></svg>
+                    </div>
+                    <!-- DATABRICKS VECTOR -->
+                    <div class="flex items-center justify-center w-28 md:w-36 h-12 text-neutral-800">
+                        <svg class="h-6 md:h-7 w-auto fill-current" viewBox="0 0 130 30"><path d="M17.4 0L3.1 8.2v16.5l14.3 8.3 14.3-8.3V8.2L17.4 0zm11 23L17.4 29.3 6.4 23V10.7l11-6.4 11 6.4V23zm-11-13.8L9.1 14l8.3 4.8 8.3-4.8-8.3-4.8z"/><text x="40" y="22" font-size="18" font-weight="bold" letter-spacing="-0.5">databricks</text></svg>
+                    </div>
+                    <!-- DROPBOX VECTOR -->
+                    <div class="flex items-center justify-center w-24 md:w-32 h-12 text-neutral-800">
+                        <svg class="h-5 md:h-6 w-auto fill-current" viewBox="0 0 120 28"><path d="M7.5 3.5L0 8.2l5.3 3.5 7.5-4.7L7.5 3.5zm0 13.5L0 21.7l5.3 3.5 7.5-4.7-5.3-3.5zm12.7-13.5l-7.5 4.7 7.5 4.7 7.5-4.7-7.5-4.7zm0 13.5l-7.5 4.7 7.5 4.7 7.5-4.7-7.5-4.7zM7.5 11.2L0 16l5.3 3.5 7.5-4.7-5.3-3.6zm12.7 0l-7.5 4.8 7.5 4.7 7.5-4.7-7.5-3.6z"/><text x="36" y="20" font-size="17" font-weight="bold" letter-spacing="0.2">Dropbox</text></svg>
+                    </div>
+                    <!-- DATABRICKS VECTOR -->
+                    <div class="flex items-center justify-center w-28 md:w-36 h-12 text-neutral-800">
+                        <svg class="h-6 md:h-7 w-auto fill-current" viewBox="0 0 130 30"><path d="M17.4 0L3.1 8.2v16.5l14.3 8.3 14.3-8.3V8.2L17.4 0zm11 23L17.4 29.3 6.4 23V10.7l11-6.4 11 6.4V23zm-11-13.8L9.1 14l8.3 4.8 8.3-4.8-8.3-4.8z"/><text x="40" y="22" font-size="18" font-weight="bold" letter-spacing="-0.5">databricks</text></svg>
+                    </div>
+                    <!-- DROPBOX VECTOR -->
+                    <div class="flex items-center justify-center w-24 md:w-32 h-12 text-neutral-800">
+                        <svg class="h-5 md:h-6 w-auto fill-current" viewBox="0 0 120 28"><path d="M7.5 3.5L0 8.2l5.3 3.5 7.5-4.7L7.5 3.5zm0 13.5L0 21.7l5.3 3.5 7.5-4.7-5.3-3.5zm12.7-13.5l-7.5 4.7 7.5 4.7 7.5-4.7-7.5-4.7zm0 13.5l-7.5 4.7 7.5 4.7 7.5-4.7-7.5-4.7zM7.5 11.2L0 16l5.3 3.5 7.5-4.7-5.3-3.6zm12.7 0l-7.5 4.8 7.5 4.7 7.5-4.7-7.5-3.6z"/><text x="36" y="20" font-size="17" font-weight="bold" letter-spacing="0.2">Dropbox</text></svg>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+
+        <!-- PREMIUM RESPONSIVE 8-PROJECT SCREEN BLOCK MATRIX -->
+        <section id="interactive-projects-showcase" class="w-full bg-[#FCFDFA] relative overflow-hidden border-t border-zinc-200/40">
+            
+            <!-- ROW 1 (Projects 1 & 2) -->
+            <div class="w-full min-h-[60vh] lg:h-screen grid grid-cols-1 lg:grid-cols-2 border-b border-zinc-200/30">
+                <!-- Project 1: Grubhub -->
+                <div class="project-column group relative h-[65vh] lg:h-full overflow-hidden border-b lg:border-b-0 lg:border-r border-zinc-200/40 bg-[#FF5200] flex flex-col justify-between p-8 md:p-14 text-white cursor-pointer" data-project="grubhub">
+                    <div class="absolute inset-0 z-0 scale-100 transition-transform duration-700 ease-out group-hover:scale-[1.02] overflow-hidden">
+                        <div class="project-media-grid w-full h-full grid grid-cols-2 grid-rows-2 p-4 gap-4 bg-[#FF5200] transition-all duration-500">
+                            <div class="rounded-xl overflow-hidden shadow-md bg-[#e24900]"><img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover" alt="Grubhub 1"></div>
+                            <div class="rounded-xl overflow-hidden shadow-md bg-[#e24900]"><img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover" alt="Grubhub 2"></div>
+                            <div class="rounded-xl overflow-hidden shadow-md bg-[#e24900]"><img src="https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover" alt="Grubhub 3"></div>
+                            <div class="rounded-xl overflow-hidden shadow-md bg-[#e24900]"><img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover" alt="Grubhub 4"></div>
+                        </div>
+                        <div class="project-blur-layer absolute inset-0 bg-black/50 backdrop-blur-xl opacity-0 pointer-events-none transition-all duration-500 flex flex-col justify-center px-6 md:px-16 text-left">
+                            <div class="max-w-md space-y-4 transform translate-y-6 transition-transform duration-500 project-info-text">
+                                <span class="text-[10px] font-bold tracking-widest uppercase text-[#FF5200] bg-white px-3 py-1 rounded-full">Case Study</span>
+                                <h3 class="text-2xl md:text-4xl font-normal text-white font-serif">Scaling Appetites with Generative Video Systems</h3>
+                                <p class="text-xs md:text-sm text-zinc-200 leading-relaxed font-light">We helped Grubhub scale raw product imagery into high-performance AI-driven video multi-variants, delivering huge conversion lift across global digital ad pipelines.</p>
+                                <div class="pt-2 flex items-center gap-4 text-[11px] font-bold tracking-wider uppercase text-white">
+                                    <div><span class="text-[#FF5200] mr-1.5">●</span> Production: 4.2k Assets</div>
+                                    <div><span class="text-[#FF5200] mr-1.5">●</span> Lift: +34% CTR</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative z-10 flex justify-between items-center w-full project-header-meta">
+                        <span class="text-[10px] font-bold tracking-[0.2em] uppercase bg-black/20 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10">01 / Motion System</span>
+                    </div>
+                    <div class="custom-hover-circle absolute pointer-events-none opacity-0 scale-50 bg-white text-black font-semibold text-xs rounded-full hidden lg:flex items-center justify-center shadow-2xl z-30 transition-all duration-300 ease-out" style="width: 90px; height: 90px; transform: translate(-50%, -50%);">
+                        <span class="circle-text font-bold">Expand +</span>
+                    </div>
+                    <div class="relative z-10 w-full pt-12 project-footer-meta">
+                        <h3 class="text-2xl md:text-3xl tracking-tight font-normal mb-1">Grubhub +</h3>
+                        <p class="text-xs text-white/80 font-medium">Automated Creative Video Production Scale Systems</p>
+                    </div>
+                </div>
+
+                <!-- Project 2: Microsoft -->
+                <div class="project-column group relative h-[65vh] lg:h-full overflow-hidden bg-[#00A4EF] flex flex-col justify-between p-8 md:p-14 text-white cursor-pointer" data-project="microsoft">
+                    <div class="absolute inset-0 z-0 scale-100 transition-transform duration-700 ease-out group-hover:scale-[1.02] overflow-hidden">
+                        <div class="project-media-grid w-full h-full bg-[#004B87] relative transition-all duration-500">
+                            <img src="https://images.unsplash.com/photo-1616469829581-73993eb86b02?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover brightness-95" alt="Microsoft Tech">
+                        </div>
+                        <div class="project-blur-layer absolute inset-0 bg-black/50 backdrop-blur-xl opacity-0 pointer-events-none transition-all duration-500 flex flex-col justify-center px-6 md:px-16 text-left">
+                            <div class="max-w-md space-y-4 transform translate-y-6 transition-transform duration-500 project-info-text">
+                                <span class="text-[10px] font-bold tracking-widest uppercase text-[#00A4EF] bg-white px-3 py-1 rounded-full">Case Study</span>
+                                <h3 class="text-2xl md:text-4xl font-normal text-white font-serif">Immersive Enterprise Spatial Ecosystems</h3>
+                                <p class="text-xs md:text-sm text-zinc-200 leading-relaxed font-light">Engineering next-generation multi-platform layout architectures for Microsoft teams. We integrated premium real-time spatial motion engine guidelines globally.</p>
+                                <div class="pt-2 flex items-center gap-4 text-[11px] font-bold tracking-wider uppercase text-white">
+                                    <div><span class="text-[#00A4EF] mr-1.5">●</span> Engine: WebGL / Core</div>
+                                    <div><span class="text-[#00A4EF] mr-1.5">●</span> Reach: 14M+ Active</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative z-10 flex justify-between items-center w-full project-header-meta">
+                        <span class="text-[10px] font-bold tracking-[0.2em] uppercase bg-black/20 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10">02 / Spatial Design</span>
+                    </div>
+                    <div class="custom-hover-circle absolute pointer-events-none opacity-0 scale-50 bg-white text-black font-semibold text-xs rounded-full hidden lg:flex items-center justify-center shadow-2xl z-30 transition-all duration-300 ease-out" style="width: 90px; height: 90px; transform: translate(-50%, -50%);">
+                        <span class="circle-text font-bold">Expand +</span>
+                    </div>
+                    <div class="relative z-10 w-full pt-12 project-footer-meta">
+                        <h3 class="text-2xl md:text-3xl tracking-tight font-normal mb-1">Microsoft +</h3>
+                        <p class="text-xs text-white/80 font-medium">Cross-Platform Experiences & Immersive Production Ops</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ROW 2 (Projects 3 & 4) -->
+            <div class="w-full min-h-[60vh] lg:h-screen grid grid-cols-1 lg:grid-cols-2 border-b border-zinc-200/30">
+                <!-- Project 3: Notion -->
+                <div class="project-column group relative h-[65vh] lg:h-full overflow-hidden border-b lg:border-b-0 lg:border-r border-zinc-200/40 bg-[#111111] flex flex-col justify-between p-8 md:p-14 text-white cursor-pointer" data-project="notion">
+                    <div class="absolute inset-0 z-0 scale-100 transition-transform duration-700 ease-out group-hover:scale-[1.02] overflow-hidden">
+                        <div class="project-media-grid w-full h-full bg-[#222222] relative transition-all duration-500">
+                            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover opacity-80" alt="Notion Abstract">
+                        </div>
+                        <div class="project-blur-layer absolute inset-0 bg-black/60 backdrop-blur-xl opacity-0 pointer-events-none transition-all duration-500 flex flex-col justify-center px-6 md:px-16 text-left">
+                            <div class="max-w-md space-y-4 transform translate-y-6 transition-transform duration-500 project-info-text">
+                                <span class="text-[10px] font-bold tracking-widest uppercase text-white bg-neutral-800 px-3 py-1 rounded-full">Product Launch</span>
+                                <h3 class="text-2xl md:text-4xl font-normal text-white font-serif">Visual Language Rebranding Strategy</h3>
+                                <p class="text-xs md:text-sm text-zinc-200 leading-relaxed font-light">Crafting minimalist bespoke dynamic vector illustration frameworks and modular components system to streamline user documentation assets globally.</p>
+                                <div class="pt-2 flex items-center gap-4 text-[11px] font-bold tracking-wider uppercase text-white">
+                                    <div><span class="text-neutral-400 mr-1.5">●</span> Assets: 1.8k Vectors</div>
+                                    <div><span class="text-neutral-400 mr-1.5">●</span> Growth: +45% Adoption</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative z-10 flex justify-between items-center w-full project-header-meta">
+                        <span class="text-[10px] font-bold tracking-[0.2em] uppercase bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10">03 / Visual Language</span>
+                    </div>
+                    <div class="custom-hover-circle absolute pointer-events-none opacity-0 scale-50 bg-white text-black font-semibold text-xs rounded-full hidden lg:flex items-center justify-center shadow-2xl z-30 transition-all duration-300 ease-out" style="width: 90px; height: 90px; transform: translate(-50%, -50%);">
+                        <span class="circle-text font-bold">Expand +</span>
+                    </div>
+                    <div class="relative z-10 w-full pt-12 project-footer-meta">
+                        <h3 class="text-2xl md:text-3xl tracking-tight font-normal mb-1">Notion +</h3>
+                        <p class="text-xs text-white/80 font-medium">Bespoke Structural Framework Illustration Systems</p>
+                    </div>
+                </div>
+
+                <!-- Project 4: Stripe -->
+                <div class="project-column group relative h-[65vh] lg:h-full overflow-hidden bg-[#635BFF] flex flex-col justify-between p-8 md:p-14 text-white cursor-pointer" data-project="stripe">
+                    <div class="absolute inset-0 z-0 scale-100 transition-transform duration-700 ease-out group-hover:scale-[1.02] overflow-hidden">
+                        <div class="project-media-grid w-full h-full bg-[#4d44e0] relative transition-all duration-500">
+                            <img src="https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover brightness-90" alt="Stripe Gradient">
+                        </div>
+                        <div class="project-blur-layer absolute inset-0 bg-black/50 backdrop-blur-xl opacity-0 pointer-events-none transition-all duration-500 flex flex-col justify-center px-6 md:px-16 text-left">
+                            <div class="max-w-md space-y-4 transform translate-y-6 transition-transform duration-500 project-info-text">
+                                <span class="text-[10px] font-bold tracking-widest uppercase text-[#635BFF] bg-white px-3 py-1 rounded-full">Interactive Dev</span>
+                                <h3 class="text-2xl md:text-4xl font-normal text-white font-serif">High-Converting Immersive Interactive Dashboards</h3>
+                                <p class="text-xs md:text-sm text-zinc-200 leading-relaxed font-light">Revamping data rendering visualization interfaces via buttery-smooth WebGL shaders, driving retention metrics up for enterprise financial reporting.</p>
+                                <div class="pt-2 flex items-center gap-4 text-[11px] font-bold tracking-wider uppercase text-white">
+                                    <div><span class="text-[#635BFF] mr-1.5">●</span> Technology: PixiJS Engine</div>
+                                    <div><span class="text-[#635BFF] mr-1.5">●</span> Speed: 60 FPS Fluid</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative z-10 flex justify-between items-center w-full project-header-meta">
+                        <span class="text-[10px] font-bold tracking-[0.2em] uppercase bg-black/20 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10">04 / Interaction Pipeline</span>
+                    </div>
+                    <div class="custom-hover-circle absolute pointer-events-none opacity-0 scale-50 bg-white text-black font-semibold text-xs rounded-full hidden lg:flex items-center justify-center shadow-2xl z-30 transition-all duration-300 ease-out" style="width: 90px; height: 90px; transform: translate(-50%, -50%);">
+                        <span class="circle-text font-bold">Expand +</span>
+                    </div>
+                    <div class="relative z-10 w-full pt-12 project-footer-meta">
+                        <h3 class="text-2xl md:text-3xl tracking-tight font-normal mb-1">Stripe +</h3>
+                        <p class="text-xs text-white/80 font-medium">B2B Product Motion Identity & Enterprise UI Systems</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ROW 3 (Projects 5 & 6) -->
+            <div class="w-full min-h-[60vh] lg:h-screen grid grid-cols-1 lg:grid-cols-2 border-b border-zinc-200/30">
+                <!-- Project 5: Airbnb -->
+                <div class="project-column group relative h-[65vh] lg:h-full overflow-hidden border-b lg:border-b-0 lg:border-r border-zinc-200/40 bg-[#FF5A5F] flex flex-col justify-between p-8 md:p-14 text-white cursor-pointer" data-project="airbnb">
+                    <div class="absolute inset-0 z-0 scale-100 transition-transform duration-700 ease-out group-hover:scale-[1.02] overflow-hidden">
+                        <div class="project-media-grid w-full h-full bg-[#e14f53] relative transition-all duration-500">
+                            <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover" alt="Airbnb Experience">
+                        </div>
+                        <div class="project-blur-layer absolute inset-0 bg-black/50 backdrop-blur-xl opacity-0 pointer-events-none transition-all duration-500 flex flex-col justify-center px-6 md:px-16 text-left">
+                            <div class="max-w-md space-y-4 transform translate-y-6 transition-transform duration-500 project-info-text">
+                                <span class="text-[10px] font-bold tracking-widest uppercase text-[#FF5A5F] bg-white px-3 py-1 rounded-full">Creative Campaign</span>
+                                <h3 class="text-2xl md:text-4xl font-normal text-white font-serif">Immersive Travel Experiences Media Launch</h3>
+                                <p class="text-xs md:text-sm text-zinc-200 leading-relaxed font-light">Produced high-end targeted visual narrative systems across premium international digital billboard displays and social formats.</p>
+                                <div class="pt-2 flex items-center gap-4 text-[11px] font-bold tracking-wider uppercase text-white">
+                                    <div><span class="text-[#FF5A5F] mr-1.5">●</span> Views: 85M+ Global</div>
+                                    <div><span class="text-[#FF5A5F] mr-1.5">●</span> Click-Through: +28%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative z-10 flex justify-between items-center w-full project-header-meta">
+                        <span class="text-[10px] font-bold tracking-[0.2em] uppercase bg-black/20 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10">05 / Global Campaign</span>
+                    </div>
+                    <div class="custom-hover-circle absolute pointer-events-none opacity-0 scale-50 bg-white text-black font-semibold text-xs rounded-full hidden lg:flex items-center justify-center shadow-2xl z-30 transition-all duration-300 ease-out" style="width: 90px; height: 90px; transform: translate(-50%, -50%);">
+                        <span class="circle-text font-bold">Expand +</span>
+                    </div>
+                    <div class="relative z-10 w-full pt-12 project-footer-meta">
+                        <h3 class="text-2xl md:text-3xl tracking-tight font-normal mb-1">Airbnb +</h3>
+                        <p class="text-xs text-white/80 font-medium">Immersive Localized Storytelling & Content Automation</p>
+                    </div>
+                </div>
+
+                <!-- Project 6: Duolingo -->
+                <div class="project-column group relative h-[65vh] lg:h-full overflow-hidden bg-[#58CC02] flex flex-col justify-between p-8 md:p-14 text-white cursor-pointer" data-project="duolingo">
+                    <div class="absolute inset-0 z-0 scale-100 transition-transform duration-700 ease-out group-hover:scale-[1.02] overflow-hidden">
+                        <div class="project-media-grid w-full h-full bg-[#4cb102] relative transition-all duration-500">
+                            <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover" alt="Duolingo Culture">
+                        </div>
+                        <div class="project-blur-layer absolute inset-0 bg-black/50 backdrop-blur-xl opacity-0 pointer-events-none transition-all duration-500 flex flex-col justify-center px-6 md:px-16 text-left">
+                            <div class="max-w-md space-y-4 transform translate-y-6 transition-transform duration-500 project-info-text">
+                                <span class="text-[10px] font-bold tracking-widest uppercase text-[#58CC02] bg-white px-3 py-1 rounded-full">Gamification</span>
+                                <h3 class="text-2xl md:text-4xl font-normal text-white font-serif">Character Character Animation Core System</h3>
+                                <p class="text-xs md:text-sm text-zinc-200 leading-relaxed font-light">Developed lightning-fast vector-based Lottie motion systems for interactive mascot prompts, scaling multi-language engagement pathways seamlessly.</p>
+                                <div class="pt-2 flex items-center gap-4 text-[11px] font-bold tracking-wider uppercase text-white">
+                                    <div><span class="text-[#58CC02] mr-1.5">●</span> Format: Lottie Vector JSON</div>
+                                    <div><span class="text-[#58CC02] mr-1.5">●</span> Retention: +19% Daily</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative z-10 flex justify-between items-center w-full project-header-meta">
+                        <span class="text-[10px] font-bold tracking-[0.2em] uppercase bg-black/20 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10">06 / Character Micro-Motion</span>
+                    </div>
+                    <div class="custom-hover-circle absolute pointer-events-none opacity-0 scale-50 bg-white text-black font-semibold text-xs rounded-full hidden lg:flex items-center justify-center shadow-2xl z-30 transition-all duration-300 ease-out" style="width: 90px; height: 90px; transform: translate(-50%, -50%);">
+                        <span class="circle-text font-bold">Expand +</span>
+                    </div>
+                    <div class="relative z-10 w-full pt-12 project-footer-meta">
+                        <h3 class="text-2xl md:text-3xl tracking-tight font-normal mb-1">Duolingo +</h3>
+                        <p class="text-xs text-white/80 font-medium">Bespoke In-App Engagement Systems & Character Vector Assets</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ROW 4 (Projects 7 & 8) -->
+            <div class="w-full min-h-[60vh] lg:h-screen grid grid-cols-1 lg:grid-cols-2">
+                <!-- Project 7: Nike -->
+                <div class="project-column group relative h-[65vh] lg:h-full overflow-hidden border-b lg:border-b-0 lg:border-r border-zinc-200/40 bg-[#111111] flex flex-col justify-between p-8 md:p-14 text-white cursor-pointer" data-project="nike">
+                    <div class="absolute inset-0 z-0 scale-100 transition-transform duration-700 ease-out group-hover:scale-[1.02] overflow-hidden">
+                        <div class="project-media-grid w-full h-full bg-[#1c1c1c] relative transition-all duration-500">
+                            <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover grayscale brightness-90 contrast-125" alt="Nike Apparel">
+                        </div>
+                        <div class="project-blur-layer absolute inset-0 bg-black/60 backdrop-blur-xl opacity-0 pointer-events-none transition-all duration-500 flex flex-col justify-center px-6 md:px-16 text-left">
+                            <div class="max-w-md space-y-4 transform translate-y-6 transition-transform duration-500 project-info-text">
+                                <span class="text-[10px] font-bold tracking-widest uppercase text-white bg-neutral-800 px-3 py-1 rounded-full">3D Production</span>
+                                <h3 class="text-2xl md:text-4xl font-normal text-white font-serif">Next-Gen Cinematic Product Rollouts</h3>
+                                <p class="text-xs md:text-sm text-zinc-200 leading-relaxed font-light">We executed ultra-premium 3D kinetic video experiences for high-velocity seasonal footwear pipelines, syncing physics assets for global distributions.</p>
+                                <div class="pt-2 flex items-center gap-4 text-[11px] font-bold tracking-wider uppercase text-white">
+                                    <div><span class="text-neutral-400 mr-1.5">●</span> Production: 12 Web Blocks</div>
+                                    <div><span class="text-neutral-400 mr-1.5">●</span> Engagement: +52% Time</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative z-10 flex justify-between items-center w-full project-header-meta">
+                        <span class="text-[10px] font-bold tracking-[0.2em] uppercase bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10">07 / Commercial Motion</span>
+                    </div>
+                    <div class="custom-hover-circle absolute pointer-events-none opacity-0 scale-50 bg-white text-black font-semibold text-xs rounded-full hidden lg:flex items-center justify-center shadow-2xl z-30 transition-all duration-300 ease-out" style="width: 90px; height: 90px; transform: translate(-50%, -50%);">
+                        <span class="circle-text font-bold">Expand +</span>
+                    </div>
+                    <div class="relative z-10 w-full pt-12 project-footer-meta">
+                        <h3 class="text-2xl md:text-3xl tracking-tight font-normal mb-1">Nike +</h3>
+                        <p class="text-xs text-white/80 font-medium">Bespoke 3D Kinetic Simulation Ads & Seasonal Asset Packages</p>
+                    </div>
+                </div>
+
+                <!-- Project 8: Audi -->
+                <div class="project-column group relative h-[65vh] lg:h-full overflow-hidden bg-[#0A0A0A] flex flex-col justify-between p-8 md:p-14 text-white cursor-pointer" data-project="audi">
+                    <div class="absolute inset-0 z-0 scale-100 transition-transform duration-700 ease-out group-hover:scale-[1.02] overflow-hidden">
+                        <div class="project-media-grid w-full h-full bg-[#151515] relative transition-all duration-500">
+                            <img src="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover" alt="Audi Vehicle">
+                        </div>
+                        <div class="project-blur-layer absolute inset-0 bg-black/60 backdrop-blur-xl opacity-0 pointer-events-none transition-all duration-500 flex flex-col justify-center px-6 md:px-16 text-left">
+                            <div class="max-w-md space-y-4 transform translate-y-6 transition-transform duration-500 project-info-text">
+                                <span class="text-[10px] font-bold tracking-widest uppercase text-zinc-400 bg-white/10 px-3 py-1 rounded-full">Automotive Digital</span>
+                                <h3 class="text-2xl md:text-4xl font-normal text-white font-serif">Immersive EV Interface Launch Strategy</h3>
+                                <p class="text-xs md:text-sm text-zinc-200 leading-relaxed font-light">Developed interactive configurator rendering layouts powered by dynamic GSAP scroll-triggered animation layers, mapping zero latency visual assets.</p>
+                                <div class="pt-2 flex items-center gap-4 text-[11px] font-bold tracking-wider uppercase text-white">
+                                    <div><span class="text-zinc-500 mr-1.5">●</span> Target: Luxury Segments</div>
+                                    <div><span class="text-zinc-500 mr-1.5">●</span> Conversions: +41% Pre-orders</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative z-10 flex justify-between items-center w-full project-header-meta">
+                        <span class="text-[10px] font-bold tracking-[0.2em] uppercase bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10">08 / Interactive Configurator</span>
+                    </div>
+                    <div class="custom-hover-circle absolute pointer-events-none opacity-0 scale-50 bg-white text-black font-semibold text-xs rounded-full hidden lg:flex items-center justify-center shadow-2xl z-30 transition-all duration-300 ease-out" style="width: 90px; height: 90px; transform: translate(-50%, -50%);">
+                        <span class="circle-text font-bold">Expand +</span>
+                    </div>
+                    <div class="relative z-10 w-full pt-12 project-footer-meta">
+                        <h3 class="text-2xl md:text-3xl tracking-tight font-normal mb-1">Audi +</h3>
+                        <p class="text-xs text-white/80 font-medium">Interactive Digital Spatial Configuration Modules & Production pipelines</p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- SECTION 3: ✨ THE PREMIUM 'OUR DIFFERENCE' COMPROMISE FEATURE MATRIX LAYER -->
+        <!-- <section id="our-difference-matrix" class="w-full bg-[#FCFDFA] py-20 md:py-32 border-t border-zinc-100/50">
+            <div class="max-w-6xl mx-auto px-6 md:px-12 text-center">
+                
+                <div class="space-y-3 mb-16 md:mb-24">
+                    <span class="text-[10px] md:text-xs font-bold tracking-[0.25em] uppercase text-zinc-400 block">OUR DIFFERENCE</span>
+                    <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-normal tracking-tight text-neutral-950 leading-[1.1]">
+                        Square One is built for brands that <br class="hidden sm:inline">
+                        <span class="italic font-light text-zinc-500 font-serif">refuse to compromise</span>
+                    </h2>
+                </div>
+
+            
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16 text-left pt-6">
+     
+                    <div class="space-y-4 group">
+                        <div class="w-10 h-10 rounded-xl bg-zinc-100 flex items-center justify-center text-zinc-800 transition duration-300 group-hover:bg-black group-hover:text-white">
+                    
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+                        </div>
+                        <div class="space-y-2">
+                            <span class="text-[10px] font-bold tracking-widest text-zinc-400 uppercase block">SCALABLE</span>
+                            <h4 class="text-lg font-semibold tracking-tight text-neutral-900">Boost your in-house creative</h4>
+                            <p class="text-xs md:text-sm text-neutral-500 leading-relaxed font-normal">
+                                We handle the heavy lifting so you can focus on strategic, high impact work without adding overhead to the team.
+                            </p>
+                        </div>
+                    </div>
+
+                 
+                    <div class="space-y-4 group">
+                        <div class="w-10 h-10 rounded-xl bg-zinc-100 flex items-center justify-center text-zinc-800 transition duration-300 group-hover:bg-black group-hover:text-white">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 002-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+                        </div>
+                        <div class="space-y-2">
+                            <span class="text-[10px] font-bold tracking-widest text-zinc-400 uppercase block">FLEXIBLE</span>
+                            <h4 class="text-lg font-semibold tracking-tight text-neutral-900">Say yes to more projects</h4>
+                            <p class="text-xs md:text-sm text-neutral-500 leading-relaxed font-normal">
+                                Whether you need more bandwidth or different skills, Square One has whatever resources you need to get the job done.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4 group">
+                        <div class="w-10 h-10 rounded-xl bg-zinc-100 flex items-center justify-center text-zinc-800 transition duration-300 group-hover:bg-black group-hover:text-white">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.907c.961 0 1.36 1.256.588 1.81l-3.974 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.974-2.888a1 1 0 00-1.176 0l-3.974 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.974-2.888c-.773-.554-.373-1.81.588-1.81h4.906a1 1 0 00.95-.69l1.519-4.674z"/></svg>
+                        </div>
+                        <div class="space-y-2">
+                            <span class="text-[10px] font-bold tracking-widest text-zinc-400 uppercase block">RESPONSIVE</span>
+                            <h4 class="text-lg font-semibold tracking-tight text-neutral-900">Don't sacrifice quality for speed</h4>
+                            <p class="text-xs md:text-sm text-neutral-500 leading-relaxed font-normal">
+                                We pair deep creative expertise with AI-first systems to keep the work strong, no matter how fast your business moves.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4 group">
+                        <div class="w-10 h-10 rounded-xl bg-zinc-100 flex items-center justify-center text-zinc-800 transition duration-300 group-hover:bg-black group-hover:text-white">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/></svg>
+                        </div>
+                        <div class="space-y-2">
+                            <span class="text-[10px] font-bold tracking-widest text-zinc-400 uppercase block">SEAMLESS</span>
+                            <h4 class="text-lg font-semibold tracking-tight text-neutral-900">One platform, total control</h4>
+                            <p class="text-xs md:text-sm text-neutral-500 leading-relaxed font-normal">
+                                Bring briefs, feedback, brand knowledge, and delivery into one connected system, giving you clarity and full visibility across every project.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section> -->
+        
+    </main>
+
+    <!-- PRE-FOOTER CTA MATRIX SECTION -->
+    <section id="pre-footer-cta-matrix" class="w-full bg-black text-white py-28 md:py-40 overflow-hidden relative flex items-center justify-center">
+        <div class="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden">
+            <img src="assets/img/ourwork-prefooter.png" 
+                 alt="Creative team synergy texture" 
+                 class="w-full h-full object-cover object-center opacity-25 brightness-125 contrast-[1.05] filter scale-[1.02]">
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black"></div>
+        </div>
+        <div class="max-w-5xl mx-auto px-6 md:px-12 lg:px-16 relative z-10 text-center flex flex-col items-center justify-center space-y-12 md:space-y-16">
+            <div class="space-y-6 max-w-4xl">
+                <span class="text-xs md:text-sm font-semibold tracking-[0.3em] uppercase text-zinc-400 block">Get Started Instantly</span>
+                <h2 class="text-4xl sm:text-6xl md:text-[68px] lg:text-[76px] xl:text-[84px] leading-[1.05] tracking-tight font-normal text-white">
+                    Ready to transform <br class="hidden sm:inline">
+                    your <span class="italic font-serif font-light text-zinc-300">creative velocity?</span>
+                </h2>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-12 sm:gap-24 border-t border-b border-zinc-800/60 py-10 w-full max-w-3xl justify-center">
+                <div class="space-y-2 text-center">
+                    <div class="text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight text-white flex items-baseline justify-center">
+                        12-24<span class="text-xl md:text-2xl text-zinc-400 font-light ml-1">hrs</span>
+                    </div>
+                    <p class="text-xs md:text-sm text-zinc-400 font-medium tracking-tight uppercase">Average asset delivery velocity</p>
+                </div>
+                <div class="space-y-2 text-center">
+                    <div class="text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight text-white">500+</div>
+                    <p class="text-xs md:text-sm text-zinc-400 font-medium tracking-tight uppercase">Global enterprises scaling safely</p>
+                </div>
+            </div>
+            <div class="pt-2">
+                <button class="open-demo-trigger inline-flex items-center justify-center px-10 py-5 rounded-full bg-white text-black text-sm md:text-base font-semibold hover:bg-zinc-200 transition-all duration-300 hover:scale-[1.03] shadow-2xl group">
+                    <span>Book a live platform tour</span>
+                    <span class="ml-2.5 transform group-hover:translate-x-1 transition-transform duration-300">→</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- BRAND FOOTER LAYER -->
+    <footer id="main-brand-footer" class="w-full bg-black text-white pt-20 pb-12 overflow-hidden border-t border-zinc-900/60">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 lg:px-16">
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-12 gap-10 md:gap-8 lg:gap-12 pb-16 border-b border-zinc-900">
+                <div class="col-span-2 md:col-span-4 lg:col-span-4 space-y-5">
+                    <div class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-white"></span>
+                        <span>Square One</span>
+                    </div>
+                    <p class="text-xs md:text-sm text-zinc-400 leading-relaxed max-w-sm">
+                        The modern creative subscription model engineered for fast-growing enterprises, product teams, and high-velocity marketing pipelines.
+                    </p>
+                </div>
+                <div class="col-span-1 md:col-span-2 lg:col-span-2 space-y-4">
+                    <h4 class="text-xs font-semibold tracking-wider text-zinc-500 uppercase">Platform</h4>
+                    <ul class="space-y-2.5 text-xs md:text-sm text-zinc-400">
+                        <li><a href="#" class="hover:text-white transition">Capabilities</a></li>
+                        <li><a href="#" class="hover:text-white transition">How it Works</a></li>
+                        <li><a href="#" class="hover:text-white transition">Pricing Models</a></li>
+                    </ul>
+                </div>
+                <div class="col-span-1 md:col-span-2 lg:col-span-2 space-y-4">
+                    <h4 class="text-xs font-semibold tracking-wider text-zinc-500 uppercase">Solutions</h4>
+                    <ul class="space-y-2.5 text-xs md:text-sm text-zinc-400">
+                        <li><a href="#" class="hover:text-white transition">Enterprise Scale</a></li>
+                        <li><a href="#" class="hover:text-white transition">Growth Marketing</a></li>
+                    </ul>
+                </div>
+                <div class="col-span-1 md:col-span-2 lg:col-span-2 space-y-4">
+                    <h4 class="text-xs font-semibold tracking-wider text-zinc-500 uppercase">Resources</h4>
+                    <ul class="space-y-2.5 text-xs md:text-sm text-zinc-400">
+                        <li><a href="#" class="hover:text-white transition">Case Studies</a></li>
+                        <li><a href="#" class="hover:text-white transition">Design Ops Guides</a></li>
+                    </ul>
+                </div>
+                <div class="col-span-1 md:col-span-2 lg:col-span-2 space-y-4">
+                    <h4 class="text-xs font-semibold tracking-wider text-zinc-500 uppercase">Support</h4>
+                    <ul class="space-y-2.5 text-xs md:text-sm text-zinc-400">
+                        <li><a href="#" class="hover:text-white transition">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-white transition">Help Desk</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 text-[11px] font-medium tracking-tight text-zinc-500">
+                <div>&copy; 2026 Square One Technologies Inc. All rights reserved.</div>
+                <div class="flex items-center flex-wrap gap-5">
+                    <a href="#" class="hover:text-zinc-300 transition">Privacy Policy</a>
+                    <a href="#" class="hover:text-zinc-300 transition">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE ENGINE SCRIPTS CONTAINER -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Initialize Plyr Custom Context
+            const player = new Plyr('#player', {
+                controls: ['play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen'],
+                clickToPlay: true,
+                hideControls: true,
+                resetOnEnd: false
+            });
+
+            const videoContainer = document.getElementById("cinema-video-container");
+            const unmuteOverlay = document.getElementById("video-unmute-overlay");
+            const plyrContainerBox = document.getElementById("plyr-container-box");
+
+            // Handle the premium toggle unmute action
+            unmuteOverlay.addEventListener("click", () => {
+                player.muted = false;
+                player.volume = 0.85;
+                player.play();
+
+                plyrContainerBox.classList.remove("h-[320px]", "sm:h-[460px]", "md:h-[600px]");
+                plyrContainerBox.classList.add("h-auto", "aspect-video");
+
+                videoContainer.classList.remove("bg-video-mode");
+                videoContainer.classList.add("interactive-mode");
+                
+                gsap.to(unmuteOverlay, {
+                    opacity: 0,
+                    duration: 0.3,
+                    onComplete: () => unmuteOverlay.remove()
+                });
+            });
+
+            // Cinema Box Expansion Sequence
+            gsap.to("#cinema-video-container", {
+                maxWidth: "72rem",
+                borderRadius: "20px",
+                scrollTrigger: {
+                    trigger: "#our-work-hero",
+                    start: "top top",
+                    end: "bottom center",
+                    scrub: 1,
+                    invalidateOnRefresh: true
+                }
+            });
+
+            // ⚡ DUAL-INTERACTIVITY MARQUEE ENGINE (Continuous Autoplay + Scroll Velocity Injection)
+            const marqueeContainer = document.querySelector('.marquee-container');
+            const marqueeWrapper = document.querySelector('.marquee-wrapper');
+            
+            // Seamless infinite clone injection
+            const clone = marqueeWrapper.cloneNode(true);
+            marqueeContainer.appendChild(clone);
+
+            let baseVelocity = 0.4; 
+            let currentX = 0;
+
+            function updateMarquee() {
+                currentX += baseVelocity;
+                if (currentX >= marqueeWrapper.offsetWidth) {
+                    currentX = 0;
+                }
+                gsap.set([marqueeWrapper, clone], { x: -currentX });
+                requestAnimationFrame(updateMarquee);
+            }
+            requestAnimationFrame(updateMarquee);
+
+            // Scroll velocity linkage mapping
+            ScrollTrigger.create({
+                trigger: "#brand-marquee-showcase",
+                start: "top bottom",
+                end: "bottom top",
+                onUpdate: (self) => {
+                    let scrollVelocity = Math.abs(self.getVelocity() * 0.04);
+                    let targetVelocity = 0.4 + Math.min(scrollVelocity, 6);
+                    
+                    gsap.to({ v: baseVelocity }, {
+                        v: targetVelocity,
+                        duration: 0.25,
+                        onUpdate: function() { baseVelocity = this.targets()[0].v; }
+                    });
+                },
+                onLeave: () => { baseVelocity = 0.4; },
+                onEnterBack: () => { baseVelocity = 0.4; }
+            });
+
+            // ================= PREMIUM 8-PROJECTS SHOWCASE INTERACTIVE LOGIC =================
+            const projectColumns = document.querySelectorAll('.project-column');
+
+            projectColumns.forEach(column => {
+                const circle = column.querySelector('.custom-hover-circle');
+                const blurLayer = column.querySelector('.project-blur-layer');
+                const infoText = column.querySelector('.project-info-text');
+                const circleText = column.querySelector('.circle-text');
+                let isExpanded = false;
+
+                // Track Mouse Rotation for Follower Circle (Fired only on Desktop screens)
+                column.addEventListener('mousemove', (e) => {
+                    if (window.innerWidth >= 1024) {
+                        const rect = column.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        
+                        gsap.to(circle, {
+                            x: x,
+                            y: y,
+                            opacity: 1,
+                            scale: 1,
+                            duration: 0.2,
+                            ease: "power2.out"
+                        });
+                    }
+                });
+
+                // FIX: Mouseleave par circle ko absolute zero target or hidden state me instantly fadeout out krna
+                column.addEventListener('mouseleave', () => {
+                    if (window.innerWidth >= 1024) {
+                        gsap.to(circle, {
+                            opacity: 0,
+                            scale: 0.5,
+                            duration: 0.25,
+                            ease: "power2.in"
+                        });
+                    }
+                });
+
+                // Toggle Info View on Click
+                column.addEventListener('click', () => {
+                    isExpanded = !isExpanded;
+
+                    if (isExpanded) {
+                        blurLayer.style.pointerEvents = "auto";
+                        gsap.to(blurLayer, { opacity: 1, duration: 0.45, ease: "power2.out" });
+                        gsap.to(infoText, { y: 0, duration: 0.5, ease: "power3.out" });
+                        if (circleText) circleText.textContent = "Close —";
+                        if (circle) gsap.to(circle, { backgroundColor: "#000000", color: "#ffffff", duration: 0.25 });
+                    } else {
+                        blurLayer.style.pointerEvents = "none";
+                        gsap.to(blurLayer, { opacity: 0, duration: 0.35, ease: "power2.in" });
+                        gsap.to(infoText, { y: 25, duration: 0.35, ease: "power2.in" });
+                        if (circleText) circleText.textContent = "Expand +";
+                        if (circle) gsap.to(circle, { backgroundColor: "#ffffff", color: "#000000", duration: 0.25 });
+                    }
+                });
+            });
+
+            // Standard Navigation Links / Overlay Modals Trigger Handlers
+            const menuOpenBtn = document.getElementById("menu-open-btn");
+            const menuCloseBtn = document.getElementById("menu-close-btn");
+            const mobileMenu = document.getElementById("mobile-menu");
+            const mobileLinks = document.querySelectorAll(".mobile-nav-link");
+            const mobileFooter = document.querySelector(".mobile-nav-footer");
+
+            const demoModal = document.getElementById("demo-modal");
+            const modalCard = document.getElementById("modal-card");
+            const modalCloseBtn = document.getElementById("modal-close-btn");
+            const openDemoTriggers = document.querySelectorAll(".open-demo-trigger");
+
+            const menuTl = gsap.timeline({ paused: true });
+            menuTl.set(mobileMenu, { display: "flex" }) 
+                  .to(mobileMenu, { opacity: 1, duration: 0.35, ease: "power2.out" })
+                  .fromTo(mobileLinks, { y: 25, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.08, duration: 0.35, ease: "power2.out" }, "-=0.15")
+                  .fromTo(mobileFooter, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, "-=0.15");
+
+            menuOpenBtn.addEventListener("click", () => {
+                document.body.style.overflow = "hidden";
+                menuTl.play();
+            });
+            menuCloseBtn.addEventListener("click", () => {
+                document.body.style.overflow = "auto";
+                menuTl.reverse();
+            });
+
+            const modalTl = gsap.timeline({ paused: true });
+            modalTl.set(demoModal, { display: "flex" })
+                   .to(demoModal, { opacity: 1, duration: 0.3, ease: "power1.out" })
+                   .fromTo(modalCard, { opacity: 0, y: 35, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "power3.out" }, "-=0.15");
+
+            openDemoTriggers.forEach(btn => {
+                btn.addEventListener("click", () => {
+                    if (mobileMenu.style.display === "flex") menuTl.reverse();
+                    document.body.style.overflow = "hidden"; 
+                    modalTl.play();
+                });
+            });
+
+            modalCloseBtn.addEventListener("click", () => {
+                document.body.style.overflow = "auto";
+                modalTl.reverse();
+            });
+            demoModal.addEventListener("click", (e) => {
+                if (e.target === demoModal) {
+                    document.body.style.overflow = "auto";
+                    modalTl.reverse();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

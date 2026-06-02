@@ -3,18 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Square One - Premium Responsive Split Framework</title>
+    <title>Square One</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet">
-
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+     <link rel="stylesheet" href="assets/css/index.css">
     <script src="https://cdn.tailwindcss.com"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     
     <style>
         /* Base Theme Settings */
+        *{
+            font-family: "Inter Tight", sans-serif;
+        }
         :root {
             --bg-black: #000000;
             --text-white: #ffffff;
@@ -23,7 +26,7 @@
         body {
             background-color: var(--bg-black);
             color: var(--text-white);
-            font-family: "Bricolage Grotesque", sans-serif;
+        
             font-optical-sizing: auto;
             font-variation-settings: "wdth" 100;
         }
@@ -72,7 +75,7 @@
             </button>
 
             <div class="text-center mb-10">
-                <h2 class="text-3xl md:text-4xl font-normal tracking-tight text-neutral-900">
+                <h2 class="text-3xl md:text-4xl  tracking-tight text-neutral-900">
                     Book a demo <span class="font-light italic text-neutral-500">with our experts</span>
                 </h2>
             </div>
@@ -193,95 +196,149 @@
     </header>
 
     <main class="w-full flex-grow relative overflow-hidden flex items-center py-12 lg:py-0">
-        <section class="w-full grid grid-cols-1 lg:grid-cols-12 items-center gap-12 lg:gap-0">
-            
-            <div class="lg:col-span-6 px-6 md:px-12 lg:pr-12 w-full flex justify-end">
-                <div class="w-full max-w-[580px] lg:w-[580px] space-y-6 z-10">
-                    <h1 class="text-5xl sm:text-6xl md:text-7xl font-extrabold leading-[1.05] tracking-tight text-white">
-                        Your creative <br>
-                        <span class="font-light text-neutral-400">team’s creative</span> <br>
-                        <span>team™</span>
-                    </h1>
-                    <p class="text-neutral-400 text-base sm:text-lg max-w-md leading-relaxed font-normal">
-                        Scale your in-house creative team with top global talent powered by industry-leading AI workflows, delivering anything you can imagine fast and affordably.
-                    </p>
-                    <div class="pt-4">
-                        <button class="open-demo-trigger bg-white text-black font-extrabold px-8 py-4 rounded-full text-md hover:bg-neutral-200 transition duration-300 shadow-xl">
-                            Book a demo
-                        </button>
-                    </div>
-                </div>
-            </div>
+       
 
-            <div class="lg:col-span-6 w-full px-6 md:px-12 lg:px-0">
-                <div class="marquee-container h-[55vh] lg:h-[85vh] w-full grid grid-cols-3 gap-4 relative overflow-hidden lg:rounded-l-2xl pl-0 lg:pl-4">
-                    
-                    <div class="flex flex-col gap-4 animate-marquee-up" id="col-1"></div>
-
-                    <div class="flex flex-col gap-4 animate-marquee-down" id="col-2"></div>
-
-                    <div class="flex flex-col gap-4 animate-marquee-up" id="col-3"></div>
-
-                    <div class="absolute top-0 left-0 w-full h-24 pointer-events-none z-20" style="background: linear-gradient(to bottom, var(--bg-black), transparent);"></div>
-                    <div class="absolute bottom-0 left-0 w-full h-24 pointer-events-none z-20" style="background: linear-gradient(to top, var(--bg-black), transparent);"></div>
-                </div>
-            </div>
-
-        </section>
-
-        
     </main>
 
-    <footer class="py-2"></footer>
+
+
+    <section id="pre-footer-cta-matrix" class="w-full bg-black text-white py-28 md:py-40 overflow-hidden border-t border-zinc-900 relative flex items-center justify-center">
+    
+    <div class="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+             alt="Creative team workspace synergy texture" 
+             class="w-full h-full object-cover object-center opacity-25 brightness-125 contrast-[1.05] filter scale-[1.02]">
+        
+        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black"></div>
+        <div class="absolute inset-0 bg-radial-gradient from-transparent via-black/30 to-black"></div>
+    </div>
+
+    <div class="max-w-5xl mx-auto px-6 md:px-12 lg:px-16 relative z-10 text-center flex flex-col items-center justify-center space-y-12 md:space-y-16">
+        
+        <div class="space-y-6 max-w-4xl">
+            <span class="text-xs md:text-sm font-semibold tracking-[0.3em] uppercase text-zinc-400 block drop-shadow-sm">
+                Get Started Instantly
+            </span>
+            <h2 class="text-4xl sm:text-6xl md:text-[68px] lg:text-[76px] xl:text-[84px] leading-[1.05] tracking-tight font-normal text-white drop-shadow-md">
+                Ready to transform <br class="hidden sm:inline">
+                your <span class="italic font-serif font-light text-zinc-300">creative velocity?</span>
+            </h2>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-12 sm:gap-24 border-t border-b border-zinc-800/60 py-10 w-full max-w-3xl justify-center">
+            <div class="space-y-2 text-center">
+                <div class="text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight text-white flex items-baseline justify-center drop-shadow-sm">
+                    12-24<span class="text-xl md:text-2xl text-zinc-400 font-light ml-1">hrs</span>
+                </div>
+                <p class="text-xs md:text-sm text-zinc-400 font-medium tracking-tight uppercase">Average asset delivery velocity</p>
+            </div>
+            <div class="space-y-2 text-center">
+                <div class="text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight text-white drop-shadow-sm">
+                    500+
+                </div>
+                <p class="text-xs md:text-sm text-zinc-400 font-medium tracking-tight uppercase">Global enterprises scaling safely</p>
+            </div>
+        </div>
+
+        <div class="pt-2">
+            <button class="open-demo-modal inline-flex items-center justify-center px-10 py-5 rounded-full bg-white text-black text-sm md:text-base font-semibold hover:bg-zinc-200 transition-all duration-300 hover:scale-[1.03] shadow-2xl group">
+                <span>Book a live platform tour</span>
+                <span class="ml-2.5 transform group-hover:translate-x-1 transition-transform duration-300">→</span>
+            </button>
+        </div>
+
+    </div>
+    </section>
+
+    <footer id="main-brand-footer" class="w-full bg-black text-white pt-20 pb-12 overflow-hidden border-t border-zinc-900/60">
+    <div class="max-w-7xl mx-auto px-6 md:px-12 lg:px-16">
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-12 gap-10 md:gap-8 lg:gap-12 pb-16 border-b border-zinc-900">
+            
+            <div class="col-span-2 md:col-span-4 lg:col-span-4 space-y-5">
+                <div class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-white"></span>
+                    <span>Square One</span>
+                </div>
+                <p class="text-xs md:text-sm text-zinc-400 leading-relaxed max-w-sm">
+                    The modern creative subscription model engineered for fast-growing enterprises, product teams, and high-velocity marketing pipelines.
+                </p>
+                <div class="pt-2 flex items-center gap-3.5 text-zinc-500">
+                    <a href="#twitter" class="hover:text-white transition text-xs">Twitter</a>
+                    <span class="text-zinc-800">•</span>
+                    <a href="#linkedin" class="hover:text-white transition text-xs">LinkedIn</a>
+                    <span class="text-zinc-800">•</span>
+                    <a href="#instagram" class="hover:text-white transition text-xs">Instagram</a>
+                </div>
+            </div>
+
+            <div class="col-span-1 md:col-span-2 lg:col-span-2 space-y-4">
+                <h4 class="text-xs font-semibold tracking-wider text-zinc-500 uppercase">Platform</h4>
+                <ul class="space-y-2.5 text-xs md:text-sm text-zinc-400">
+                    <li><a href="#capabilities" class="hover:text-white transition-colors duration-200">Capabilities</a></li>
+                    <li><a href="#how-it-works" class="hover:text-white transition-colors duration-200">How it Works</a></li>
+                    <li><a href="#pricing" class="hover:text-white transition-colors duration-200">Pricing Models</a></li>
+                    <li><a href="#integrations" class="hover:text-white transition-colors duration-200">Integrations</a></li>
+                </ul>
+            </div>
+
+            <div class="col-span-1 md:col-span-2 lg:col-span-2 space-y-4">
+                <h4 class="text-xs font-semibold tracking-wider text-zinc-500 uppercase">Solutions</h4>
+                <ul class="space-y-2.5 text-xs md:text-sm text-zinc-400">
+                    <li><a href="#enterprise" class="hover:text-white transition-colors duration-200">Enterprise Scale</a></li>
+                    <li><a href="#growth-marketing" class="hover:text-white transition-colors duration-200">Growth Marketing</a></li>
+                    <li><a href="#product-teams" class="hover:text-white transition-colors duration-200">Product Design</a></li>
+                    <li><a href="#agencies" class="hover:text-white transition-colors duration-200">For Agencies</a></li>
+                </ul>
+            </div>
+
+            <div class="col-span-1 md:col-span-2 lg:col-span-2 space-y-4">
+                <h4 class="text-xs font-semibold tracking-wider text-zinc-500 uppercase">Resources</h4>
+                <ul class="space-y-2.5 text-xs md:text-sm text-zinc-400">
+                    <li><a href="#case-studies" class="hover:text-white transition-colors duration-200">Case Studies</a></li>
+                    <li><a href="#design-ops" class="hover:text-white transition-colors duration-200">Design Ops Guides</a></li>
+                    <li><a href="#blog" class="hover:text-white transition-colors duration-200">Journal & News</a></li>
+                    <li><a href="#careers" class="hover:text-white transition-colors duration-200">Careers</a></li>
+                </ul>
+            </div>
+
+            <div class="col-span-1 md:col-span-2 lg:col-span-2 space-y-4">
+                <h4 class="text-xs font-semibold tracking-wider text-zinc-500 uppercase">Support</h4>
+                <ul class="space-y-2.5 text-xs md:text-sm text-zinc-400">
+                    <li><a href="#contact" class="hover:text-white transition-colors duration-200">Contact Us</a></li>
+                    <li><a href="#help-center" class="hover:text-white transition-colors duration-200">Help Desk</a></li>
+                    <li><a href="#status" class="hover:text-white transition-colors duration-200">System Status</a></li>
+                    <li><a href="#security" class="hover:text-white transition-colors duration-200">Security Vault</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="pt-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 text-[11px] font-medium tracking-tight text-zinc-500">
+            
+            <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+                <span>&copy; 2026 Square One Technologies Inc. All rights reserved.</span>
+                <span class="hidden sm:inline text-zinc-800">|</span>
+                <span class="text-zinc-600">Built for speed globally.</span>
+            </div>
+            
+            <div class="flex items-center flex-wrap gap-x-5 gap-y-2 text-zinc-500">
+                <a href="#privacy" class="hover:text-zinc-300 transition">Privacy Policy</a>
+                <a href="#terms" class="hover:text-zinc-300 transition">Terms of Service</a>
+                <a href="#cookies" class="hover:text-zinc-300 transition">Cookie Preferences</a>
+                <a href="#trust" class="hover:text-zinc-300 transition">Trust Center</a>
+            </div>
+
+        </div>
+
+    </div>
+    </footer>
 
     <script>
-        // 1. ORIGINAL PORTFOLIO MOCK DATABASE FROM YOUR SCRIPT.JS
-        const mockImages = [
-            { bg: 'bg-blue-600', text: 'Wilson Custom Basketball', img: 'https://images.unsplash.com/photo-1546519638-68e109498ffc?w=400&auto=format&fit=crop&q=60' },
-            { bg: 'bg-orange-600', text: 'GRUBHUB Food Branding', img: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&auto=format&fit=crop&q=60' },
-            { bg: 'bg-teal-700', text: 'Oyster Business Delivery', img: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&auto=format&fit=crop&q=60' },
-            { bg: 'bg-purple-600', text: 'SUBLIM Dynamic Packaging', img: 'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=400&auto=format&fit=crop&q=60' },
-            { bg: 'bg-pink-600', text: 'Outbrain Analytics Dashboard', img: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&auto=format&fit=crop&q=60' },
-            { bg: 'bg-indigo-800', text: 'Pernod Ricard App Design', img: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&auto=format&fit=crop&q=60' }
-        ];
-
-        // 2. CARD GENERATOR ENGINE
-        function createCard(item) {
-            return `
-                <div class="w-full aspect-[3/4] ${item.bg} rounded-2xl overflow-hidden relative group cursor-pointer shadow-md transform transition duration-500 hover:scale-[1.02]">
-                    <img src="${item.img}" alt="${item.text}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition duration-300">
-                    <div class="absolute inset-0 bg-black/40 p-4 flex flex-col justify-end opacity-0 group-hover:opacity-100 transition duration-300">
-                        <p class="text-xs font-bold tracking-wider uppercase text-emerald-400">Project</p>
-                        <h4 class="text-sm font-semibold text-white leading-tight mt-1">${item.text}</h4>
-                    </div>
-                </div>
-            `;
-        }
-
+        
         document.addEventListener("DOMContentLoaded", () => {
             
-            // --- POPULATE COLUMNS LOGIC ---
-            const col1 = document.getElementById('col-1');
-            const col2 = document.getElementById('col-2');
-            const col3 = document.getElementById('col-3');
-
-            const itemsCol1 = [...mockImages];
-            const itemsCol2 = [...mockImages].reverse();
-            const itemsCol3 = [mockImages[3], mockImages[4], mockImages[5], mockImages[0], mockImages[1], mockImages[2]];
-
-            function populateColumn(element, items) {
-                if(!element) return;
-                // Double layout for seamless infinite looping illusion
-                let htmlContent = items.map(item => createCard(item)).join('');
-                htmlContent += items.map(item => createCard(item)).join('');
-                element.innerHTML = htmlContent;
-            }
-
-            populateColumn(col1, itemsCol1);
-            populateColumn(col2, itemsCol2);
-            populateColumn(col3, itemsCol3);
-
-            // --- NAVIGATION AND INTERACTIVE CONTROLS ELEMENTS ---
+          
             const menuOpenBtn = document.getElementById("menu-open-btn");
             const menuCloseBtn = document.getElementById("menu-close-btn");
             const mobileMenu = document.getElementById("mobile-menu");
@@ -380,6 +437,7 @@
             });
         });
     </script>
+   
 
 </body>
 </html>
