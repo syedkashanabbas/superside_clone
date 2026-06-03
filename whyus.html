@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Square One - Why Teams Switch to SquareOne</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/index.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Plyr CSS & JS (Premium Video Player Integration) -->
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+    <script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
+    
+    <!-- GSAP Core & ScrollTrigger Core Engines -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    
+    <style>
+        * {
+            font-family: "Inter Tight", sans-serif;
+        }
+        :root {
+            --bg-page: #FCFDFA; 
+            --plyr-color-main: #000000;
+            --plyr-video-control-background-hover: rgba(0, 0, 0, 0.08);
+        }
+        body {
+            background-color: var(--bg-page);
+            color: #000000;
+            font-optical-sizing: auto;
+            font-variation-settings: "wdth" 100;
+        }
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Plyr Interactive Background Overlay Modes */
+        .bg-video-mode .plyr__controls,
+        .bg-video-mode .plyr__volume {
+            opacity: 0 !important;
+            pointer-events: none !important;
+            transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .interactive-mode .plyr__controls {
+            opacity: 1 !important;
+            pointer-events: auto !important;
+        }
+        
+        /* High-Performance Smooth Marquee Layout System */
+        .marquee-container {
+            display: flex;
+            overflow: hidden;
+            user-select: none;
+            width: 100%;
+        }
+        .marquee-wrapper {
+            display: flex;
+            white-space: nowrap;
+            will-change: transform;
+        }
+    </style>
+</head>
+<body class="min-h-screen overflow-x-hidden flex flex-col justify-between relative">
+
+    <!-- UNIVERSAL DEMO FORM MODAL -->
+    <div id="demo-modal" class="fixed inset-0 w-full h-screen bg-black/60 backdrop-blur-md z-[1000] hidden items-center justify-center px-4">
+        <div id="modal-card" class="bg-[#fcfdfa] text-black w-full max-w-2xl rounded-3xl p-8 md:p-12 shadow-2xl relative transform translate-y-8 opacity-0">
+            <button id="modal-close-btn" class="absolute top-6 right-6 p-2 text-neutral-400 hover:text-black transition focus:outline-none" aria-label="Close Modal">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <div class="text-center mb-10">
+                <h2 class="text-3xl md:text-4xl tracking-tight text-neutral-900">
+                    Book a demo <span class="font-light italic text-neutral-500">with our experts</span>
+                </h2>
+            </div>
+            <form onsubmit="event.preventDefault();" class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="flex flex-col space-y-1.5">
+                        <label class="text-[11px] font-bold tracking-wider text-neutral-400 uppercase pl-1">Business Email</label>
+                        <input type="email" placeholder="Enter your business email" class="w-full bg-transparent border border-neutral-300 rounded-full px-5 py-3.5 text-sm text-neutral-800 placeholder-neutral-400 focus:outline-none focus:border-black transition" required>
+                    </div>
+                    <div class="flex flex-col space-y-1.5">
+                        <label class="text-[11px] font-bold tracking-wider text-neutral-400 uppercase pl-1">Full Name</label>
+                        <input type="text" placeholder="Enter your full name" class="w-full bg-transparent border border-neutral-300 rounded-full px-5 py-3.5 text-sm text-neutral-800 placeholder-neutral-400 focus:outline-none focus:border-black transition" required>
+                    </div>
+                    <div class="flex flex-col space-y-1.5">
+                        <label class="text-[11px] font-bold tracking-wider text-neutral-400 uppercase pl-1">Company Size</label>
+                        <div class="relative">
+                            <select class="w-full bg-transparent border border-neutral-300 rounded-full px-5 py-3.5 text-sm text-neutral-500 appearance-none focus:outline-none focus:border-black transition cursor-pointer">
+                                <option value="" disabled selected>Select the size of your company</option>
+                                <option value="1-10">1 - 10 employees</option>
+                                <option value="11-50">11 - 50 employees</option>
+                                <option value="51-200">51 - 200 employees</option>
+                                <option value="201+">201+ employees</option>
+                            </select>
+                            <div class="absolute inset-y-0 right-5 flex items-center pointer-events-none text-neutral-400">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col space-y-1.5">
+                        <label class="text-[11px] font-bold tracking-wider text-neutral-400 uppercase pl-1">Company Name</label>
+                        <input type="text" placeholder="Enter your company name" class="w-full bg-transparent border border-neutral-300 rounded-full px-5 py-3.5 text-sm text-neutral-800 placeholder-neutral-400 focus:outline-none focus:border-black transition" required>
+                    </div>
+                </div>
+                <div class="flex justify-end pt-4">
+                    <button type="submit" class="bg-[#032b24] text-white font-bold px-8 py-3.5 rounded-full text-sm hover:bg-black transition duration-300 shadow-md">
+                        Book a demo
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- RESPONSIVE MOBILE NAVIGATION OVERLAY -->
+    <div id="mobile-menu" class="fixed inset-0 w-full h-screen bg-black z-[999] hidden flex-col justify-between px-8 py-12 lg:hidden">
+        <div class="flex justify-between items-center w-full">
+            <span class="text-2xl font-extrabold tracking-tight text-white"><a href="index.html">S Q U A R E  O N E</a></span>
+            <button id="menu-close-btn" class="p-2 text-white hover:text-neutral-400 transition focus:outline-none" aria-label="Close Menu">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        <nav class="flex flex-col space-y-8 text-4xl font-bold tracking-tight text-left my-auto w-full">
+            <a href="#" class="mobile-nav-link text-neutral-200 hover:text-white transition duration-300 flex items-center justify-between group py-2 border-b border-neutral-900">
+                <span>Services</span> <span class="text-2xl text-neutral-500 group-hover:text-white transition">→</span>
+            </a>
+            <a href="ourwork.html" class="mobile-nav-link text-neutral-200 hover:text-white transition duration-300 flex items-center justify-between group py-2 border-b border-neutral-900">
+                <span>Our work</span> <span class="text-2xl text-neutral-500 group-hover:text-white transition">→</span>
+            </a>
+            <a href="#" class="mobile-nav-link text-neutral-200 hover:text-white transition duration-300 flex items-center justify-between group py-2 border-b border-neutral-900">
+                <span>Why us</span> <span class="text-2xl text-neutral-500 group-hover:text-white transition">→</span>
+            </a>
+            <a href="pricing.html" class="mobile-nav-link text-neutral-200 hover:text-white transition duration-300 flex items-center justify-between group py-2 border-b border-neutral-900">
+                <span>Pricing</span> <span class="text-2xl text-neutral-500 group-hover:text-white transition">→</span>
+            </a>
+        </nav>
+        <div class="mobile-nav-footer w-full flex flex-col space-y-4 pt-6 border-t border-neutral-900">
+            <button class="open-demo-trigger w-full bg-white text-black font-extrabold py-4 rounded-full text-center hover:bg-neutral-200 transition duration-300">
+                Book a demo
+            </button>
+            <button class="w-full text-center text-neutral-400 font-semibold py-2 hover:text-white transition">
+                Sign in
+            </button>
+        </div>
+    </div>
+
+    <!-- MAIN INTERACTIVE HEADER -->
+    <header class="w-full sticky top-0 z-50 px-6 md:px-12 py-5 bg-[#FCFDFA]">
+        <div class="w-full mx-auto flex justify-between items-center gap-4 relative">
+            
+            <div class="text-2xl font-extrabold tracking-tight text-black cursor-pointer shrink-0">
+                <a href="/index.html">S Q U A R E  O N E</a>
+            </div>
+            
+            <nav class="hidden lg:flex items-center space-x-6 xl:space-x-8 text-sm font-semibold text-neutral-500 whitespace-nowrap overflow-hidden">
+                <a href="#" class="hover:text-black transition duration-200">Services</a>
+                <a href="ourwork.html" class="hover:text-black transition duration-200">Our work</a>
+                <a href="#" class="text-black transition duration-200">Why us</a>
+                <a href="pricing.html" class="hover:text-black transition duration-200">Pricing</a>
+            </nav>
+            
+            <div class="flex items-center space-x-4 shrink-0">
+                <button class="hidden sm:inline-block text-neutral-600 font-semibold text-sm hover:text-black transition duration-200">
+                    Sign in
+                </button>
+                <button class="open-demo-trigger hidden sm:inline-block bg-black text-white font-bold px-6 py-2.5 rounded-full text-sm hover:bg-neutral-800 transition duration-300 shadow-md">
+                    Book a demo
+                </button>
+
+                <button id="menu-open-btn" class="lg:hidden flex items-center justify-center p-2 text-black hover:text-neutral-600 transition focus:outline-none z-40" aria-label="Open Menu">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- CONTENT BODY SECTION GRID -->
+    <main class="w-full flex-grow relative overflow-hidden p-0">
+        
+        <!-- SECTION 1: CINEMATIC PLYR WORK HERO CONTAINER -->
+      <section id="our-work-hero" class="w-full bg-[#FCFDFA] pt-12 md:pt-20 pb-12 overflow-hidden relative">
+    <div class="w-full mx-auto px-6 md:px-12 lg:px-16 flex flex-col items-center justify-center">
+        
+        <div class="text-center max-w-4xl mx-auto mb-12 md:mb-16">
+            <span class="text-xs font-semibold tracking-[0.2em] text-neutral-500 uppercase block mb-4 md:mb-6">
+                Our Technology
+            </span>
+            
+            <h1 class="text-4xl sm:text-5xl md:text-7xl font-normal tracking-tight text-[#071E19] leading-[1.1]">
+                The AI platform powering <br>
+                <span class="italic font-serif font-light text-[#071E19]">your creative edge</span>
+            </h1>
+            
+            <p class="mt-6 md:mt-8 text-neutral-600 text-sm md:text-base max-w-2xl mx-auto leading-relaxed font-light">
+                Superspace is our creative management platform, designed for the realities of modern creative work, keeping your projects aligned from brief to final delivery.
+            </p>
+        </div>
+        <div id="cinema-video-container" class="w-full max-w-5xl rounded-2xl md:rounded-3xl overflow-hidden bg-zinc-900 shadow-[0_20px_55px_-15px_rgba(0,0,0,0.07)] border border-zinc-200/30 relative bg-video-mode group">
+            <div class="w-full h-[320px] sm:h-[460px] md:h-[600px] relative" id="plyr-container-box">
+                <video id="player" class="w-full h-full object-cover object-center" crossorigin playsinline autoplay muted loop>
+                    <source src="assets/img/video1.mp4" type="video/mp4">
+                </video>
+                
+                <div id="video-unmute-overlay" class="absolute inset-0 bg-black/10 flex items-center justify-center cursor-pointer transition-all duration-500 z-20 group-hover:bg-black/20">
+                    <button class="bg-white/95 text-black font-semibold text-xs md:text-sm px-6 py-3 rounded-full flex items-center gap-2.5 shadow-xl hover:bg-white hover:scale-105 transition active:scale-95 border border-zinc-100">
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77zM4.03 5.71L3 6.74 7.3 11H3v2h4l5 5v-6.3l4.3 4.3c-.39.29-.81.54-1.3.72v2.04c1.03-.22 1.97-.67 2.79-1.28l2.5 2.5 1.03-1.03L4.03 5.71zM12 4L9.91 6.09 12 8.18V4z"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+        </section>
+        <section id="creative-system-alternatives" class="w-full bg-white text-black py-24 px-6 sm:px-12 lg:px-24 border-t border-zinc-100 overflow-hidden select-none">
+    <div class="max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-20 items-center">
+            
+            <div class="lg:col-span-6 opacity-0 transform translate-y-16 transition-all duration-1000 ease-out lg:order-1 w-full" id="reversed-graphic-frame">
+                <div class="relative w-full aspect-square bg-[#0c0c0c] border border-zinc-900 rounded-2xl p-8 sm:p-10 flex flex-col justify-between overflow-hidden group shadow-[0_35px_80px_-25px_rgba(0,0,0,0.15)] hover:border-zinc-700 transition-all duration-500">
+                    
+                    <div class="absolute inset-0 opacity-[0.02] bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none"></div>
+                    
+                    <div class="absolute -left-20 -top-20 w-80 h-80 rounded-full bg-zinc-800/10 blur-[80px] pointer-events-none group-hover:bg-zinc-700/20 transition-all duration-700"></div>
+
+                    <div class="flex items-center justify-between z-10 border-b border-zinc-900 pb-5">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-2.5 h-2.5 rounded-full bg-zinc-800"></div>
+                            <div class="w-2.5 h-2.5 rounded-full bg-zinc-800"></div>
+                            <div class="w-2.5 h-2.5 rounded-full bg-zinc-800"></div>
+                        </div>
+                        <div class="font-mono text-[10px] tracking-widest text-zinc-600 uppercase">
+                            S1 // INTEGRATION_MATRIX
+                        </div>
+                    </div>
+
+                    <div class="my-auto py-8 flex flex-col items-center justify-center space-y-5 z-10">
+                        <div class="w-20 h-20 rounded-xl bg-zinc-950 border border-zinc-800 flex items-center justify-center transform group-hover:scale-105 group-hover:-rotate-3 transition-all duration-500 shadow-2xl">
+                            <svg class="w-8 h-8 text-zinc-500 group-hover:text-white transition-colors" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
+                            </svg>
+                        </div>
+                        <div class="text-center space-y-2">
+                            <div class="text-base font-medium tracking-tight text-zinc-400 group-hover:text-white transition-colors">Unified Collaboration Core</div>
+                            <div class="font-mono text-[11px] text-zinc-600">Syncing briefs, asset context and feedback logs...</div>
+                        </div>
+                        
+                        <div class="flex items-center space-x-2 pt-1">
+                            <span class="w-2 h-2 rounded-full bg-zinc-800 group-hover:bg-emerald-500 transition-colors duration-500"></span>
+                            <span class="w-2 h-2 rounded-full bg-zinc-800 group-hover:bg-emerald-500 transition-colors duration-500 delay-75"></span>
+                            <span class="w-2 h-2 rounded-full bg-zinc-800 group-hover:bg-emerald-500 transition-colors duration-500 delay-150"></span>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between z-10 border-t border-zinc-900 pt-5 font-mono text-[10px] tracking-wider text-zinc-600">
+                        <div>PIPELINE // SECURE</div>
+                        <div>REDUNDANCY // ACTIVE</div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="lg:col-span-6 space-y-6 opacity-0 transform translate-y-10 transition-all duration-700 ease-out lg:order-2" id="reversed-text-stack">
+                
+                <div class="space-y-4">
+                    <span class="text-xs md:text-sm font-bold tracking-[0.25em] uppercase text-zinc-400 block">Looking for A BETTER WAY</span>
+                    <div class="w-20 h-[1px] bg-zinc-200 block"></div>
+                </div>
+                
+                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-normal tracking-tight text-black leading-[1.08] pt-2">
+                    Creative workflows are broken, <br>
+                    so we built a <span class="italic font-serif font-light text-zinc-400">better system</span>
+                </h2>
+                
+                <div class="space-y-4 max-w-xl pt-2">
+                    <p class="text-base sm:text-lg text-zinc-900 font-medium leading-relaxed">
+                        Scattered context, endless feedback loops and files no one can find. Sound familiar?
+                    </p>
+                    <p class="text-sm sm:text-base text-zinc-500 font-normal leading-relaxed">
+                        With creative work being more innovative than ever, suddenly the operational process around it becomes the ultimate structural bottleneck. That’s why we built SquareOne. One native system where your team and ours work fluidly from the exact same briefs, real-time feedback and centralized brand context.
+                    </p>
+                </div>
+
+                <div class="pt-6">
+                    <button class="open-demo-trigger group relative inline-flex items-center justify-center bg-black text-white text-xs font-bold tracking-widest uppercase px-8 py-4 rounded-full overflow-hidden shadow-xl hover:bg-zinc-900 transition-colors duration-300">
+                        <span>Book a demo</span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const revTextStack = document.getElementById("reversed-text-stack");
+        const revGraphicFrame = document.getElementById("reversed-graphic-frame");
+
+        const reversedObserverOptions = {
+            root: null,
+            threshold: 0.15,
+            rootMargin: "0px"
+        };
+
+        const reversedObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Trigger smooth, staggered cinematic entry sequence
+                    revTextStack.style.opacity = "1";
+                    revTextStack.style.transform = "translateY(0px)";
+
+                    setTimeout(() => {
+                        revGraphicFrame.style.opacity = "1";
+                        revGraphicFrame.style.transform = "translateY(0px)";
+                    }, 200);
+
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, reversedObserverOptions);
+
+        // Bind tracker anchors seamlessly to elements
+        if (revTextStack) reversedObserver.observe(revTextStack);
+    });
+</script>
+
+     <section id="creative-process-ecosystem" class="w-full bg-white text-black py-24 px-6 sm:px-12 lg:px-24 border-t border-zinc-100 overflow-hidden select-none">
+    <div class="max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-20 items-center">
+            
+            <div class="lg:col-span-6 space-y-6 opacity-0 transform translate-y-10 transition-all duration-700 ease-out" id="process-text-stack">
+                
+                <div class="space-y-4">
+                    <span class="text-xs md:text-sm font-bold tracking-[0.25em] uppercase text-zinc-400 block">SMOOTHER CREATIVE PROCESS</span>
+                    <div class="w-20 h-[1px] bg-zinc-200 block"></div>
+                </div>
+                
+                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-normal tracking-tight text-black leading-[1.08] pt-2">
+                    Designed for the way <br>
+                    your team <span class="italic font-serif font-light text-zinc-400">actually works</span>
+                </h2>
+                
+                <div class="space-y-4 max-w-xl pt-2">
+                    <p class="text-base sm:text-lg text-zinc-900 font-medium leading-relaxed">
+                        SquareOne OS is part of your SquareOne subscription and the engine behind every continuous ecosystem interaction.
+                    </p>
+                    <p class="text-sm sm:text-base text-zinc-500 font-normal leading-relaxed">
+                        Our platform was created for teams juggling multiple complex pipelines, projects and cross-functional stakeholders. It gives you real visibility and control, so operational priorities stay clear, loop feedback stays focused and everything stays on track as projects scale. Just how it should be.
+                    </p>
+                </div>
+
+                <div class="pt-6">
+                    <button class="open-demo-trigger group relative inline-flex items-center justify-center bg-black text-white text-xs font-bold tracking-widest uppercase px-8 py-4 rounded-full overflow-hidden shadow-xl hover:bg-zinc-900 transition-colors duration-300">
+                        <span>Book a demo</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="lg:col-span-6 opacity-0 transform translate-y-16 transition-all duration-1000 ease-out lg:delay-200 w-full" id="process-graphic-frame">
+                <div class="relative w-full aspect-square bg-[#0c0c0c] border border-zinc-900 rounded-2xl p-8 sm:p-10 flex flex-col justify-between overflow-hidden group shadow-[0_35px_80px_-25px_rgba(0,0,0,0.15)] hover:border-zinc-700 transition-all duration-500">
+                    
+                    <div class="absolute inset-0 opacity-[0.02] bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none"></div>
+                    
+                    <div class="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-zinc-800/10 blur-[80px] pointer-events-none group-hover:bg-zinc-700/20 transition-all duration-700"></div>
+
+                    <div class="flex items-center justify-between z-10 border-b border-zinc-900 pb-5">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-2.5 h-2.5 rounded-full bg-zinc-800"></div>
+                            <div class="w-2.5 h-2.5 rounded-full bg-zinc-800"></div>
+                            <div class="w-2.5 h-2.5 rounded-full bg-zinc-800"></div>
+                        </div>
+                        <div class="font-mono text-[10px] tracking-widest text-zinc-600 uppercase">
+                            S1 // CORE_ENGINE_ACTIVE
+                        </div>
+                    </div>
+
+                    <div class="my-auto py-8 flex flex-col items-center justify-center space-y-5 z-10">
+                        <div class="w-20 h-20 rounded-xl bg-zinc-950 border border-zinc-800 flex items-center justify-center transform group-hover:scale-105 group-hover:rotate-3 transition-all duration-500 shadow-2xl">
+                            <svg class="w-8 h-8 text-zinc-500 group-hover:text-white transition-colors" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+                            </svg>
+                        </div>
+                        <div class="text-center space-y-2">
+                            <div class="text-base font-medium tracking-tight text-zinc-400 group-hover:text-white transition-colors">Ecosystem Workflow Blueprint</div>
+                            <div class="font-mono text-[11px] text-zinc-600">Context Automation Sheet Rendering...</div>
+                        </div>
+                        
+                        <div class="w-56 h-1 bg-zinc-900 rounded-full overflow-hidden mt-2">
+                            <div class="w-3/4 h-full bg-zinc-700 rounded-full group-hover:w-full group-hover:bg-white transition-all duration-1000 ease-out"></div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between z-10 border-t border-zinc-900 pt-5 font-mono text-[10px] tracking-wider text-zinc-600">
+                        <div>LATENCY // 0.04MS</div>
+                        <div>BUFFER // STABLE</div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const textStack = document.getElementById("process-text-stack");
+        const graphicFrame = document.getElementById("process-graphic-frame");
+
+        const processObserverOptions = {
+            root: null,
+            threshold: 0.15,
+            rootMargin: "0px"
+        };
+
+        const processObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    textStack.style.opacity = "1";
+                    textStack.style.transform = "translateY(0px)";
+
+                    setTimeout(() => {
+                        graphicFrame.style.opacity = "1";
+                        graphicFrame.style.transform = "translateY(0px)";
+                    }, 200);
+
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, processObserverOptions);
+
+        if (textStack) processObserver.observe(textStack);
+    });
+</script>
+   
+    <section id="interactive-pipeline-matrix" class="w-full bg-white text-white py-24 px-6 sm:px-12 lg:px-24 border-t border-zinc-100 overflow-hidden select-none">
+        
+        <div class="max-w-7xl mx-auto bg-[#09090b] border border-zinc-900 rounded-[32px] py-20 px-6 sm:px-12 lg:px-20 shadow-[0_30px_90px_-20px_rgba(0,0,0,0.4)]">
+            
+            <div class="mb-16 text-center space-y-4 max-w-3xl mx-auto">
+                <span class="text-xs md:text-sm font-bold tracking-[0.3em] uppercase text-zinc-600 block">OPERATIONAL LIFECYCLE</span>
+                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-normal tracking-tight text-white leading-tight">
+                    How we move your project from <br class="hidden sm:block">
+                    <span class="italic font-serif font-light text-zinc-500">Square One to production</span>
+                </h2>
+            </div>
+
+            <div id="pipeline-rows-parent" class="w-full border-t border-b border-zinc-800/50 transition-all duration-500">
+                
+                <div class="pipeline-row group relative flex flex-col sm:flex-row items-start sm:items-center justify-between py-10 sm:py-12 px-6 cursor-pointer border-b border-zinc-800/50 last:border-b-0 overflow-hidden transition-all duration-500 ease-out">
+                    
+                    <div class="row-glow pointer-events-none absolute inset-0 bg-zinc-900/0 opacity-0 transition-all duration-500 ease-out z-0"></div>
+                    
+                    <div class="flex items-center space-x-6 sm:space-x-8 z-10 transform transition-transform duration-500 ease-out group-hover:translate-x-4">
+                        <div class="w-14 h-14 rounded-full border border-zinc-800 flex items-center justify-center shrink-0 bg-black transition-all duration-500 group-hover:border-zinc-400 group-hover:bg-zinc-950 group-hover:rotate-6">
+                            <svg class="w-5 h-5 text-zinc-500 group-hover:text-white transition-colors duration-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-.856.12-1.685.342-2.47" />
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl sm:text-3xl md:text-4xl font-normal tracking-tight text-zinc-300 group-hover:text-white transition-colors duration-300">
+                            Intelligent Async Briefing
+                        </h3>
+                    </div>
+
+                    <div class="mt-6 sm:mt-0 pl-20 sm:pl-0 flex items-center space-x-6 z-10 text-left sm:text-right w-full sm:w-auto justify-between sm:justify-end">
+                        <span class="font-mono text-xs tracking-widest text-zinc-600 group-hover:text-zinc-400 transition-colors duration-500">
+                            PHASE 01 // SCOPE
+                        </span>
+                        <div class="text-xl font-light text-zinc-600 opacity-0 transform translate-x-4 transition-all duration-500 ease-out group-hover:opacity-100 group-hover:translate-x-0 hidden sm:block">
+                            ↗
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="pipeline-row group relative flex flex-col sm:flex-row items-start sm:items-center justify-between py-10 sm:py-12 px-6 cursor-pointer border-b border-zinc-800/50 last:border-b-0 overflow-hidden transition-all duration-500 ease-out">
+                    
+                    <div class="row-glow pointer-events-none absolute inset-0 bg-zinc-900/0 opacity-0 transition-all duration-500 ease-out z-0"></div>
+                    
+                    <div class="flex items-center space-x-6 sm:space-x-8 z-10 transform transition-transform duration-500 ease-out group-hover:translate-x-4">
+                        <div class="w-14 h-14 rounded-full border border-zinc-800 flex items-center justify-center shrink-0 bg-black transition-all duration-500 group-hover:border-zinc-400 group-hover:bg-zinc-950 group-hover:rotate-6">
+                            <svg class="w-5 h-5 text-zinc-500 group-hover:text-white transition-colors duration-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl sm:text-3xl md:text-4xl font-normal tracking-tight text-zinc-300 group-hover:text-white transition-colors duration-300">
+                            High-Velocity Sprint Loops
+                        </h3>
+                    </div>
+
+                    <div class="mt-6 sm:mt-0 pl-20 sm:pl-0 flex items-center space-x-6 z-10 text-left sm:text-right w-full sm:w-auto justify-between sm:justify-end">
+                        <span class="font-mono text-xs tracking-widest text-zinc-600 group-hover:text-zinc-400 transition-colors duration-500">
+                            PHASE 02 // SPRINT
+                        </span>
+                        <div class="text-xl font-light text-zinc-600 opacity-0 transform translate-x-4 transition-all duration-500 ease-out group-hover:opacity-100 group-hover:translate-x-0 hidden sm:block">
+                            ↗
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="pipeline-row group relative flex flex-col sm:flex-row items-start sm:items-center justify-between py-10 sm:py-12 px-6 cursor-pointer border-b border-zinc-800/50 last:border-b-0 overflow-hidden transition-all duration-500 ease-out">
+                    
+                    <div class="row-glow pointer-events-none absolute inset-0 bg-zinc-900/0 opacity-0 transition-all duration-500 ease-out z-0"></div>
+                    
+                    <div class="flex items-center space-x-6 sm:space-x-8 z-10 transform transition-transform duration-500 ease-out group-hover:translate-x-4">
+                        <div class="w-14 h-14 rounded-full border border-zinc-800 flex items-center justify-center shrink-0 bg-black transition-all duration-500 group-hover:border-zinc-400 group-hover:bg-zinc-950 group-hover:rotate-6">
+                            <svg class="w-5 h-5 text-zinc-500 group-hover:text-white transition-colors duration-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl sm:text-3xl md:text-4xl font-normal tracking-tight text-zinc-300 group-hover:text-white transition-colors duration-300">
+                            Continuous Ecosystem Handoff
+                        </h3>
+                    </div>
+
+                    <div class="mt-6 sm:mt-0 pl-20 sm:pl-0 flex items-center space-x-6 z-10 text-left sm:text-right w-full sm:w-auto justify-between sm:justify-end">
+                        <span class="font-mono text-xs tracking-widest text-zinc-600 group-hover:text-zinc-400 transition-colors duration-500">
+                            PHASE 03 // DEPLOY
+                        </span>
+                        <div class="text-xl font-light text-zinc-600 opacity-0 transform translate-x-4 transition-all duration-500 ease-out group-hover:opacity-100 group-hover:translate-x-0 hidden sm:block">
+                            ↗
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const pipelineParent = document.getElementById("pipeline-rows-parent");
+        const pipelineRows = document.querySelectorAll(".pipeline-row");
+
+        pipelineRows.forEach((row) => {
+            const glowTrack = row.querySelector(".row-glow");
+
+            // 1. Dynamic Mousemove Tracker for Spotlight Glow Layer
+            row.addEventListener("mousemove", (e) => {
+                const rect = row.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                // Real-time radial gradient position management
+                glowTrack.style.background = `radial-gradient(circle 180px at ${x}px ${y}px, rgba(63, 63, 70, 0.15), transparent 80%)`;
+            });
+
+            // 2. Immersive Dim-Out Sequence on Mouse Enter
+            row.addEventListener("mouseenter", () => {
+                glowTrack.style.opacity = "1";
+                
+                pipelineRows.forEach((item) => {
+                    if (item !== row) {
+                        // Inactive elements look premium faded
+                        item.classList.add("opacity-20", "scale-[0.985]");
+                    } else {
+                        item.classList.remove("opacity-20", "scale-[0.985]");
+                    }
+                });
+            });
+
+            // 3. Reset Handler on Mouse Leave from a row
+            row.addEventListener("mouseleave", () => {
+                glowTrack.style.opacity = "0";
+            });
+        });
+
+        // 4. Global Container Reset System
+        pipelineParent.addEventListener("mouseleave", () => {
+            pipelineRows.forEach((item) => {
+                item.classList.remove("opacity-20", "scale-[0.985]");
+            });
+        });
+    });
+</script>
+
+<section id="ai-agents-immersive-matrix" class="w-full bg-white text-black py-28 px-6 sm:px-12 lg:px-24  overflow-hidden select-none">
+    <div class="max-w-7xl mx-auto">
+        
+        <div class="mb-16 text-center space-y-4 max-w-3xl mx-auto">
+            <span class="text-xs md:text-sm font-bold tracking-[0.25em] uppercase text-zinc-400 block">YOUR BRAND BRAIN IN ACTION</span>
+            <h2 class="text-4xl sm:text-5xl lg:text-6xl font-normal tracking-tight text-zinc-950 leading-[1.1]">
+                AI agents for smarter <br>
+                creative execution
+            </h2>
+            <p class="text-zinc-500 text-sm sm:text-base max-w-xl mx-auto font-normal pt-2">
+                Your Brand Brain powers a set of AI agents that apply your brand's context across the creative process.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
+            
+            <div class="relative flex flex-col justify-between p-8 sm:p-10 rounded-[28px] overflow-hidden min-h-[620px] bg-gradient-to-b from-[#e3b6bf] via-[#cb9cb2] to-[#b38da8] transition-all duration-500 hover:scale-[1.01] hover:shadow-[0_40px_90px_-20px_rgba(179,141,168,0.3)] group">
+                <div class="absolute inset-0 bg-white/10 backdrop-blur-3xl pointer-events-none"></div>
+                
+                <div class="absolute inset-0 z-0 pointer-events-none opacity-20 text-white flex items-center justify-center translate-y-[-10%]" style="animation: agentVectorDrift 16s infinite ease-in-out;">
+                    <svg fill="none" stroke="currentColor" stroke-width="0.8" viewBox="0 0 24 24" class="w-72 h-72">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                    </svg>
+                </div>
+
+                <div class="relative z-10">
+                    <h3 class="text-2xl font-medium tracking-tight text-white leading-snug max-w-[240px]">
+                        Turn scattered thoughts into on-brand briefs
+                    </h3>
+                </div>
+
+                <div class="relative z-10 my-auto py-6 w-full max-w-[290px] mx-auto">
+                    <div class="bg-white/90 backdrop-blur-md rounded-2xl p-5 shadow-2xl border border-white/40 space-y-4">
+                        <div class="flex items-center space-x-2 text-[10px] uppercase font-bold tracking-wider text-rose-400">
+                            <span class="w-2 h-2 rounded-full bg-rose-400 animate-pulse"></span>
+                            <span>Briefing Module</span>
+                        </div>
+                        <p class="text-[13px] text-zinc-700 leading-relaxed font-normal">
+                            "help me write a brief for social, use our latest campaign concept. formats: reels / short video first..."
+                        </p>
+                        <div class="w-full h-[1px] bg-zinc-100"></div>
+                        <div class="flex justify-between items-center text-[10px] text-zinc-400 font-mono">
+                            <span>S1 ENGINE v2.4</span>
+                            <span class="text-rose-500 font-bold">READY</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative z-10 pt-4">
+                    <p class="text-xs sm:text-[13px] text-white/90 font-normal leading-relaxed">
+                        The AI Briefing Agent turns rough ideas into clear, actionable briefs, drawing from your Brand Brain to add the right specs, references, and context from the start.
+                    </p>
+                </div>
+            </div>
+
+            <div class="relative flex flex-col justify-between p-8 sm:p-10 rounded-[28px] overflow-hidden min-h-[620px] bg-gradient-to-b from-[#badcb9] via-[#94bf96] to-[#79a37c] transition-all duration-500 hover:scale-[1.01] hover:shadow-[0_40px_90px_-20px_rgba(121,163,124,0.3)] group">
+                <div class="absolute inset-0 bg-white/10 backdrop-blur-3xl pointer-events-none"></div>
+                
+                <div class="absolute inset-0 z-0 pointer-events-none opacity-20 text-white flex items-center justify-center translate-y-[10%]" style="animation: agentVectorDrift 18s infinite ease-in-out -4s;">
+                    <svg fill="none" stroke="currentColor" stroke-width="0.8" viewBox="0 0 24 24" class="w-72 h-72">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18m9-9H3M12 12l4.5 4.5M12 12l-4.5-4.5M12 12l4.5-4.5M12 12l-4.5 4.5" />
+                    </svg>
+                </div>
+
+                <div class="relative z-10">
+                    <h3 class="text-2xl font-medium tracking-tight text-white leading-snug max-w-[260px]">
+                        Get a fresh perspective on your creative work
+                    </h3>
+                </div>
+
+                <div class="relative z-10 my-auto py-6 w-full max-w-[290px] mx-auto">
+                    <div class="bg-white/90 backdrop-blur-md rounded-2xl p-5 shadow-2xl border border-white/40 space-y-4">
+                        <div class="flex items-center space-x-2 text-[10px] uppercase font-bold tracking-wider text-emerald-600">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                            <span>Insights Node</span>
+                        </div>
+                        <p class="text-[13px] text-zinc-700 leading-relaxed font-normal">
+                            "What exact operational assets has the cross-functional team delivered for the Q3 launch campaign?"
+                        </p>
+                        <div class="w-full h-[1px] bg-zinc-100"></div>
+                        <div class="flex justify-between items-center text-[10px] text-zinc-400 font-mono">
+                            <span>SCAN STATE // COMPLETED</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative z-10 pt-4">
+                    <p class="text-xs sm:text-[13px] text-white/90 font-normal leading-relaxed">
+                        The AI Insights Agent helps you uncover patterns, gaps and opportunities across your projects, so you can make smarter creative decisions.
+                    </p>
+                </div>
+            </div>
+
+            <div class="relative flex flex-col justify-between p-8 sm:p-10 rounded-[28px] overflow-hidden min-h-[620px] bg-gradient-to-b from-[#bcdbe7] via-[#94bcd6] to-[#749bb7] transition-all duration-500 hover:scale-[1.01] hover:shadow-[0_40px_90px_-20px_rgba(116,155,183,0.3)] group">
+                <div class="absolute inset-0 bg-white/10 backdrop-blur-3xl pointer-events-none"></div>
+                
+                <div class="absolute inset-0 z-0 pointer-events-none opacity-20 text-white flex items-center justify-center translate-y-[-5%]" style="animation: agentVectorDrift 14s infinite ease-in-out -2s;">
+                    <svg fill="none" stroke="currentColor" stroke-width="0.8" viewBox="0 0 24 24" class="w-72 h-72">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
+                    </svg>
+                </div>
+
+                <div class="relative z-10">
+                    <h3 class="text-2xl font-medium tracking-tight text-white leading-snug max-w-[240px]">
+                        Create a clearer picture of what’s next
+                    </h3>
+                </div>
+
+                <div class="relative z-10 my-auto py-6 w-full max-w-[290px] mx-auto">
+                    <div class="bg-white/90 backdrop-blur-md rounded-2xl p-5 shadow-2xl border border-white/40 space-y-4">
+                        <div class="flex items-center space-x-2 text-[10px] uppercase font-bold tracking-wider text-blue-500">
+                            <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
+                            <span>Generation Pipeline</span>
+                        </div>
+                        <p class="text-[13px] text-zinc-700 leading-relaxed font-normal">
+                            "Got it! Here are the localized dynamic image generation variations for the Q1 Art Direction maps..."
+                        </p>
+                        <div class="w-full h-[1px] bg-zinc-100"></div>
+                        <div class="flex justify-between items-center text-[10px] text-zinc-400 font-mono">
+                            <span>RENDERS // 4 ACTIVE</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative z-10 pt-4">
+                    <p class="text-xs sm:text-[13px] text-white/90 font-normal leading-relaxed">
+                        Brand Models make it easy to generate on-brand visuals, so you can explore directions or try new ideas before work moves into production.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<style>
+    @keyframes agentVectorDrift {
+        0% {
+            transform: translateY(0px) translateX(0px) rotate(0deg) scale(1);
+        }
+        50% {
+            transform: translateY(-25px) translateX(15px) rotate(8deg) scale(1.05);
+        }
+        100% {
+            transform: translateY(0px) translateX(0px) rotate(0deg) scale(1);
+        }
+    }
+</style>
+
+   
+
+        <section id="squareone-comparison-matrix" class="w-full bg-white text-black py-28 px-6 sm:px-12 lg:px-24 border-t border-zinc-100 overflow-hidden select-none">
+    <div class="max-w-7xl mx-auto">
+        
+        <div class="mb-20 text-center space-y-4 max-w-3xl mx-auto">
+            <span class="text-xs md:text-sm font-bold tracking-[0.3em] uppercase text-zinc-400 block">THE INVERSION LAYER</span>
+            <h2 class="text-4xl sm:text-5xl lg:text-6xl font-normal tracking-tight text-black leading-[1.05]">
+                Built for creative teams. <br>
+                <span class="italic font-serif font-light text-zinc-400">Not built like the rest.</span>
+            </h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+            
+            <div id="comparison-box-white" class="bg-zinc-50/50 border border-zinc-200/80 text-black rounded-3xl p-8 sm:p-12 flex flex-col justify-between space-y-12 opacity-0 transform translate-y-12 transition-all duration-700 ease-out shadow-[0_20px_50px_-20px_rgba(0,0,0,0.03)]">
+                <div>
+                    <div class="border-b border-zinc-200 pb-6 mb-8">
+                        <h3 class="text-2xl sm:text-3xl font-medium tracking-tight text-black">SquareOne OS</h3>
+                        <p class="text-xs sm:text-sm text-zinc-500 mt-2 leading-relaxed">
+                            A purpose-built platform for creative teams that streamlines collaboration, asset management, and project execution with AI-first workflows and built-in brand intelligence.
+                        </p>
+                    </div>
+
+                    <ul class="space-y-6">
+                        <li class="flex items-start space-x-4 group">
+                            <span class="text-black text-lg font-medium mt-0.5">✓</span>
+                            <p class="text-sm text-zinc-900 font-medium leading-relaxed">
+                                Designed specifically for marketing and creative teams, covering briefing, collaboration, asset management and budget control.
+                            </p>
+                        </li>
+                        <li class="flex items-start space-x-4 group">
+                            <span class="text-black text-lg font-medium mt-0.5">✓</span>
+                            <p class="text-sm text-zinc-900 font-medium leading-relaxed">
+                                Enables seamless collaboration with Square One’s design specialists and creatives in real time.
+                            </p>
+                        </li>
+                        <li class="flex items-start space-x-4 group">
+                            <span class="text-black text-lg font-medium mt-0.5">✓</span>
+                            <p class="text-sm text-zinc-900 font-medium leading-relaxed">
+                                AI agents powered by your custom Brand Brain, injecting tailored context across briefing, data insights, and layout development.
+                            </p>
+                        </li>
+                        <li class="flex items-start space-x-4 group">
+                            <span class="text-black text-lg font-medium mt-0.5">✓</span>
+                            <p class="text-sm text-zinc-900 font-medium leading-relaxed">
+                                Intelligent asset infrastructure with automated AI tagging, full version control logs, and centralized storage architectures.
+                            </p>
+                        </li>
+                        <li class="flex items-start space-x-4 group">
+                            <span class="text-black text-lg font-medium mt-0.5">✓</span>
+                            <p class="text-sm text-zinc-900 font-medium leading-relaxed">
+                                Native budget tracking matrices, granular role-based permissions, and transparent real-time balance asset dashboards.
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="pt-6 border-t border-zinc-200 flex justify-between items-center w-full">
+                    <span class="text-[11px] font-mono tracking-widest text-zinc-400 uppercase">ECOSYSTEM // STANDARD ACCESS</span>
+                    <span class="text-xs font-bold text-black group-hover:translate-x-1 transition-transform">INCLUDED ↗</span>
+                </div>
+            </div>
+
+            <div id="comparison-box-black" class="bg-[#0c0c0c] text-white border border-zinc-900 rounded-3xl p-8 sm:p-12 flex flex-col justify-between space-y-12 opacity-0 transform translate-y-12 transition-all duration-700 ease-out lg:delay-200 shadow-[0_30px_70px_-15px_rgba(0,0,0,0.3)]">
+                <div>
+                    <div class="border-b border-zinc-800/60 pb-6 mb-8">
+                        <h3 class="text-2xl sm:text-3xl font-normal tracking-tight text-zinc-400">Alternatives</h3>
+                        <p class="text-xs sm:text-sm text-zinc-500 mt-2 leading-relaxed">
+                            General project management tools that lack creative-specific workflows, making collaboration, briefing, and asset organization more manual and time-consuming.
+                        </p>
+                    </div>
+
+                    <ul class="space-y-6">
+                        <li class="flex items-start space-x-4 group">
+                            <span class="text-zinc-600 text-lg font-light mt-0.5 group-hover:text-zinc-400 transition-colors">—</span>
+                            <p class="text-sm text-zinc-400 leading-relaxed group-hover:text-zinc-300 transition-colors">
+                                Built for general task tracking, without the brand context or workflows needed to support creative work.
+                            </p>
+                        </li>
+                        <li class="flex items-start space-x-4 group">
+                            <span class="text-zinc-600 text-lg font-light mt-0.5 group-hover:text-zinc-400 transition-colors">—</span>
+                            <p class="text-sm text-zinc-400 leading-relaxed group-hover:text-zinc-300 transition-colors">
+                                Requires external coordination with agencies or freelancers, adding complexity to communication and workflow.
+                            </p>
+                        </li>
+                        <li class="flex items-start space-x-4 group">
+                            <span class="text-zinc-600 text-lg font-light mt-0.5 group-hover:text-zinc-400 transition-colors">—</span>
+                            <p class="text-sm text-zinc-400 leading-relaxed group-hover:text-zinc-300 transition-colors">
+                                Relies on manual input and generic AI tools, often leading to vague briefs, misalignment, and extended feedback cycles.
+                            </p>
+                        </li>
+                        <li class="flex items-start space-x-4 group">
+                            <span class="text-zinc-600 text-lg font-light mt-0.5 group-hover:text-zinc-400 transition-colors">—</span>
+                            <p class="text-sm text-zinc-400 leading-relaxed group-hover:text-zinc-300 transition-colors">
+                                Files are scattered across multiple tools, making it difficult to find the latest versions when needed.
+                            </p>
+                        </li>
+                        <li class="flex items-start space-x-4 group">
+                            <span class="text-zinc-600 text-lg font-light mt-0.5 group-hover:text-zinc-400 transition-colors">—</span>
+                            <p class="text-sm text-zinc-400 leading-relaxed group-hover:text-zinc-300 transition-colors">
+                                Budget and resource tracking require external tools, increasing manual effort and limiting real visibility into usage and performance.
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="pt-6 border-t border-zinc-900 text-[11px] font-mono tracking-widest text-zinc-600 uppercase">
+                    SYSTEM LIMITATIONS // INACTIVE STATE
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const boxWhite = document.getElementById("comparison-box-white");
+        const boxBlack = document.getElementById("comparison-box-black");
+
+        const comparisonOptions = {
+            root: null,
+            threshold: 0.1,
+            rootMargin: "0px"
+        };
+
+        const comparisonObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Reveal Left White Box First smoothly
+                    boxWhite.style.opacity = "1";
+                    boxWhite.style.transform = "translateY(0px)";
+
+                    // Stagger Reveal Right Black Card instantly for premium look
+                    setTimeout(() => {
+                        boxBlack.style.opacity = "1";
+                        boxBlack.style.transform = "translateY(0px)";
+                    }, 220);
+
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, comparisonOptions);
+
+        // Bind tracking targets smoothly to the observer hook
+        if (boxWhite) comparisonObserver.observe(boxWhite);
+    });
+</script>
+        <section id="squareone-split-faq" class="w-full bg-black text-white py-28 px-6 sm:px-12 lg:px-24 border-t border-zinc-900 overflow-hidden select-none">
+    <div class="max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+            
+            <div class="lg:col-span-5 space-y-6 lg:sticky lg:top-32">
+                <span class="text-xs md:text-sm font-bold tracking-[0.3em] uppercase text-zinc-600 block">PLATFORM ARCHITECTURE</span>
+                <h2 class="text-4xl sm:text-5xl font-normal tracking-tight text-white leading-[1.1]">
+                    Deep answers to our <br>
+                    <span class="italic font-serif font-light text-zinc-500">creative ecosystem.</span>
+                </h2>
+                <p class="text-sm sm:text-base text-zinc-400 font-normal leading-relaxed max-w-md">
+                    Everything you need to know about SquareOne OS—our AI-powered creative management ecosystem built to scale modern enterprise workflows.
+                </p>
+                <div class="pt-4">
+                    <button class="open-demo-trigger inline-flex items-center space-x-2 text-xs font-bold uppercase tracking-widest text-white border-b border-white pb-1 hover:text-zinc-400 hover:border-zinc-400 transition-colors duration-300">
+                        <span>Explore Platform System</span>
+                        <span>→</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="lg:col-span-7 divide-y divide-zinc-800/80 border-t border-b border-zinc-800/80 w-full transition-all duration-500">
+                
+                <div class="faq-accordion-item group py-7 transition-all duration-300">
+                    <button class="faq-accordion-trigger w-full flex justify-between items-center text-left py-2 focus:outline-none" aria-expanded="false">
+                        <span class="text-lg sm:text-xl md:text-2xl font-normal tracking-tight text-zinc-300 group-hover:text-white transition-colors duration-300">
+                            What is SquareOne OS?
+                        </span>
+                        <span class="faq-accordion-icon text-xl sm:text-2xl font-light text-zinc-600 group-hover:text-white ml-6 transform transition-transform duration-300 origin-center shrink-0">
+                            +
+                        </span>
+                    </button>
+                    <div class="faq-accordion-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                        <p class="pt-4 pb-2 text-sm sm:text-base text-zinc-400 font-normal leading-relaxed max-w-2xl">
+                            SquareOne OS is Square One’s AI-powered creative management platform, built specifically for in-house marketing and enterprise creative teams. It brings briefing, asynchronous collaboration, live feedback loops, asset management, and flexible budget tracking into one unified, hyper-secure workspace, so your team can run large-scale creative projects without switching tools, duplicating workflows, or losing source assets. SquareOne OS is included with every subscription tier at no additional cost.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-accordion-item group py-7 transition-all duration-300">
+                    <button class="faq-accordion-trigger w-full flex justify-between items-center text-left py-2 focus:outline-none" aria-expanded="false">
+                        <span class="text-lg sm:text-xl md:text-2xl font-normal tracking-tight text-zinc-300 group-hover:text-white transition-colors duration-300">
+                            How does SquareOne OS improve collaboration between my team and Square One?
+                        </span>
+                        <span class="faq-accordion-icon text-xl sm:text-2xl font-light text-zinc-600 group-hover:text-white ml-6 transform transition-transform duration-300 origin-center shrink-0">
+                            +
+                        </span>
+                    </button>
+                    <div class="faq-accordion-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                        <div class="pt-4 pb-2 space-y-4 text-sm sm:text-base text-zinc-400 font-normal leading-relaxed max-w-2xl">
+                            <p>
+                                It builds a direct, frictionless shared workspace. Real-time in-context commenting, structured approval checkpoints, and automatic version control replace endless email chains and scattered Slack alerts, making design feedback incredibly transparent to track.
+                            </p>
+                            <p>
+                                Additionally, our AI-powered briefing system works alongside your local Brand Brain to boost structural alignment from day one, ensuring our specialists launch each active sprint cycle with clear, complete requirements. Every single source file lives right beside the tracking thread, guaranteeing your team is always shipping on the absolute latest asset baseline.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-accordion-item group py-7 transition-all duration-300">
+                    <button class="faq-accordion-trigger w-full flex justify-between items-center text-left py-2 focus:outline-none" aria-expanded="false">
+                        <span class="text-lg sm:text-xl md:text-2xl font-normal tracking-tight text-zinc-300 group-hover:text-white transition-colors duration-300">
+                            How does SquareOne OS integrate with our existing tools?
+                        </span>
+                        <span class="faq-accordion-icon text-xl sm:text-2xl font-light text-zinc-600 group-hover:text-white ml-6 transform transition-transform duration-300 origin-center shrink-0">
+                            +
+                        </span>
+                    </button>
+                    <div class="faq-accordion-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                        <p class="pt-4 pb-2 text-sm sm:text-base text-zinc-400 font-normal leading-relaxed max-w-2xl">
+                            SquareOne OS integrates seamlessly with the production toolsets your team already relies on daily, including Asana, Jira, Monday.com, Wrike, Slack, and Microsoft Teams. Creative briefs, milestone states, and pipeline updates automatically stay in sync bi-directionally, preventing double-work and eliminating manual status alignment tracking across disconnected software setups.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-accordion-item group py-7 transition-all duration-300">
+                    <button class="faq-accordion-trigger w-full flex justify-between items-center text-left py-2 focus:outline-none" aria-expanded="false">
+                        <span class="text-lg sm:text-xl md:text-2xl font-normal tracking-tight text-zinc-300 group-hover:text-white transition-colors duration-300">
+                            Can I track my projects and budgets within SquareOne OS?
+                        </span>
+                        <span class="faq-accordion-icon text-xl sm:text-2xl font-light text-zinc-600 group-hover:text-white ml-6 transform transition-transform duration-300 origin-center shrink-0">
+                            +
+                        </span>
+                    </button>
+                    <div class="faq-accordion-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                        <p class="pt-4 pb-2 text-sm sm:text-base text-zinc-400 font-normal leading-relaxed max-w-2xl">
+                            Yes, absolutely. SquareOne OS fields a comprehensive operational dashboard giving you real-time line visibility into production lifecycles, monthly capital consumption, and live team workload allocation. You can monitor budget velocity across concurrent campaigns, spin up temporary resources, and implement precise role-based clearance permissions so the right internal stakeholders view relevant data streams safely without global exposure risks.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-accordion-item group py-7 transition-all duration-300">
+                    <button class="faq-accordion-trigger w-full flex justify-between items-center text-left py-2 focus:outline-none" aria-expanded="false">
+                        <span class="text-lg sm:text-xl md:text-2xl font-normal tracking-tight text-zinc-300 group-hover:text-white transition-colors duration-300">
+                            What makes SquareOne OS different from other project management tools?
+                        </span>
+                        <span class="faq-accordion-icon text-xl sm:text-2xl font-light text-zinc-600 group-hover:text-white ml-6 transform transition-transform duration-300 origin-center shrink-0">
+                            +
+                        </span>
+                    </button>
+                    <div class="faq-accordion-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                        <div class="pt-4 pb-2 space-y-4 text-sm sm:text-base text-zinc-400 font-normal leading-relaxed max-w-2xl">
+                            <p>
+                                Standard project software is architected around generic tickets, spreadsheets, and basic engineering tasks, forcing highly visual design pipelines into interfaces never engineered for creative rendering. 
+                            </p>
+                            <p>
+                                SquareOne OS unites software, predictive AI accelerators, and a world-class dedicated creative team under one continuous system. Instead of managing complex configurations across three separate standalone platforms, you get contextual canvas reviews, instant centralized asset handoffs, and an intelligent engine that learns your unique brand guidelines over time.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-accordion-item group py-7 transition-all duration-300">
+                    <button class="faq-accordion-trigger w-full flex justify-between items-center text-left py-2 focus:outline-none" aria-expanded="false">
+                        <span class="text-lg sm:text-xl md:text-2xl font-normal tracking-tight text-zinc-300 group-hover:text-white transition-colors duration-300">
+                            How is SquareOne OS priced?
+                        </span>
+                        <span class="faq-accordion-icon text-xl sm:text-2xl font-light text-zinc-600 group-hover:text-white ml-6 transform transition-transform duration-300 origin-center shrink-0">
+                            +
+                        </span>
+                    </button>
+                    <div class="faq-accordion-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                        <p class="pt-4 pb-2 text-sm sm:text-base text-zinc-400 font-normal leading-relaxed max-w-2xl">
+                            SquareOne OS is bundled directly with your standard Square One monthly flat-rate subscription framework at zero extra cost. There are no platform user licenses, no hidden seat expansions, and no tiered per-head pricing filters. Our model scales elastically based on your raw creative asset output volume rather than employee headcount limits, allowing you to easily open up platform access to your entire enterprise ecosystem.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+        </section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const faqAccordionTriggers = document.querySelectorAll(".faq-accordion-trigger");
+
+        faqAccordionTriggers.forEach(trigger => {
+            trigger.addEventListener("click", () => {
+                const item = trigger.closest(".faq-accordion-item");
+                const content = item.querySelector(".faq-accordion-content");
+                const icon = item.querySelector(".faq-accordion-icon");
+                const isExpanded = trigger.getAttribute("aria-expanded") === "true";
+
+                // Close all other open accordion panels for pristine tracking focus
+                document.querySelectorAll(".faq-accordion-item").forEach(otherItem => {
+                    if (otherItem !== item) {
+                        const otherTrigger = otherItem.querySelector(".faq-accordion-trigger");
+                        const otherContent = otherItem.querySelector(".faq-accordion-content");
+                        const otherIcon = otherItem.querySelector(".faq-accordion-icon");
+                        
+                        otherContent.style.maxHeight = "0px";
+                        otherTrigger.setAttribute("aria-expanded", "false");
+                        otherIcon.textContent = "+";
+                        otherIcon.style.transform = "rotate(0deg)";
+                    }
+                });
+
+                // Toggle logic state on current targeted element
+                if (!isExpanded) {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                    trigger.setAttribute("aria-expanded", "true");
+                    icon.textContent = "×"; // Minimal sleek close marker toggle
+                    icon.style.transform = "rotate(90deg)";
+                } else {
+                    content.style.maxHeight = "0px";
+                    trigger.setAttribute("aria-expanded", "false");
+                    icon.textContent = "+";
+                    icon.style.transform = "rotate(0deg)";
+                }
+            });
+        });
+    });
+</script>
+
+
+        
+    </main>
+
+    <!-- PRE-FOOTER CTA MATRIX SECTION -->
+    <section id="pre-footer-cta-matrix" class="w-full bg-black text-white py-28 md:py-40 overflow-hidden relative flex items-center justify-center">
+        <div class="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden">
+            <img src="assets/img/whyus-prefooter.png" 
+                 alt="Creative team synergy texture" 
+                 class="w-full h-full object-cover object-center opacity-25 brightness-125 contrast-[1.05] filter scale-[1.02]">
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black"></div>
+        </div>
+        <div class="max-w-5xl mx-auto px-6 md:px-12 lg:px-16 relative z-10 text-center flex flex-col items-center justify-center space-y-12 md:space-y-16">
+            <div class="space-y-6 max-w-4xl">
+                <span class="text-xs md:text-sm font-semibold tracking-[0.3em] uppercase text-zinc-400 block">Get Started Instantly</span>
+                <h2 class="text-4xl sm:text-6xl md:text-[68px] lg:text-[76px] xl:text-[84px] leading-[1.05] tracking-tight font-normal text-white">
+                    Ready to transform <br class="hidden sm:inline">
+                    your <span class="italic font-serif font-light text-zinc-300">creative velocity?</span>
+                </h2>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-12 sm:gap-24 border-t border-b border-zinc-800/60 py-10 w-full max-w-3xl justify-center">
+                <div class="space-y-2 text-center">
+                    <div class="text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight text-white flex items-baseline justify-center">
+                        12-24<span class="text-xl md:text-2xl text-zinc-400 font-light ml-1">hrs</span>
+                    </div>
+                    <p class="text-xs md:text-sm text-zinc-400 font-medium tracking-tight uppercase">Average asset delivery velocity</p>
+                </div>
+                <div class="space-y-2 text-center">
+                    <div class="text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight text-white">500+</div>
+                    <p class="text-xs md:text-sm text-zinc-400 font-medium tracking-tight uppercase">Global enterprises scaling safely</p>
+                </div>
+            </div>
+            <div class="pt-2">
+                <button class="open-demo-trigger inline-flex items-center justify-center px-10 py-5 rounded-full bg-white text-black text-sm md:text-base font-semibold hover:bg-zinc-200 transition-all duration-300 hover:scale-[1.03] shadow-2xl group">
+                    <span>Book a live platform tour</span>
+                    <span class="ml-2.5 transform group-hover:translate-x-1 transition-transform duration-300">→</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- BRAND FOOTER LAYER -->
+    <footer id="main-brand-footer" class="w-full bg-black text-white pt-20 pb-12 overflow-hidden border-t border-zinc-900/60">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 lg:px-16">
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-12 gap-10 md:gap-8 lg:gap-12 pb-16 border-b border-zinc-900">
+                <div class="col-span-2 md:col-span-4 lg:col-span-4 space-y-5">
+                    <div class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-white"></span>
+                        <span>Square One</span>
+                    </div>
+                    <p class="text-xs md:text-sm text-zinc-400 leading-relaxed max-w-sm">
+                        The modern creative subscription model engineered for fast-growing enterprises, product teams, and high-velocity marketing pipelines.
+                    </p>
+                </div>
+                <div class="col-span-1 md:col-span-2 lg:col-span-2 space-y-4">
+                    <h4 class="text-xs font-semibold tracking-wider text-zinc-500 uppercase">Platform</h4>
+                    <ul class="space-y-2.5 text-xs md:text-sm text-zinc-400">
+                        <li><a href="#" class="hover:text-white transition">Capabilities</a></li>
+                        <li><a href="#" class="hover:text-white transition">How it Works</a></li>
+                        <li><a href="./pricing.html" class="hover:text-white transition">Pricing Models</a></li>
+                    </ul>
+                </div>
+                <div class="col-span-1 md:col-span-2 lg:col-span-2 space-y-4">
+                    <h4 class="text-xs font-semibold tracking-wider text-zinc-500 uppercase">Solutions</h4>
+                    <ul class="space-y-2.5 text-xs md:text-sm text-zinc-400">
+                        <li><a href="#" class="hover:text-white transition">Enterprise Scale</a></li>
+                        <li><a href="#" class="hover:text-white transition">Growth Marketing</a></li>
+                    </ul>
+                </div>
+                <div class="col-span-1 md:col-span-2 lg:col-span-2 space-y-4">
+                    <h4 class="text-xs font-semibold tracking-wider text-zinc-500 uppercase">Resources</h4>
+                    <ul class="space-y-2.5 text-xs md:text-sm text-zinc-400">
+                        <li><a href="#" class="hover:text-white transition">Case Studies</a></li>
+                        <li><a href="#" class="hover:text-white transition">Design Ops Guides</a></li>
+                    </ul>
+                </div>
+                <div class="col-span-1 md:col-span-2 lg:col-span-2 space-y-4">
+                    <h4 class="text-xs font-semibold tracking-wider text-zinc-500 uppercase">Support</h4>
+                    <ul class="space-y-2.5 text-xs md:text-sm text-zinc-400">
+                        <li><a href="#" class="hover:text-white transition">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-white transition">Help Desk</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 text-[11px] font-medium tracking-tight text-zinc-500">
+                <div>&copy; 2026 Square One Technologies Inc. All rights reserved.</div>
+                <div class="flex items-center flex-wrap gap-5">
+                    <a href="#" class="hover:text-zinc-300 transition">Privacy Policy</a>
+                    <a href="#" class="hover:text-zinc-300 transition">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE ENGINE SCRIPTS CONTAINER -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Initialize Plyr Custom Context
+            const player = new Plyr('#player', {
+                controls: ['play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen'],
+                clickToPlay: true,
+                hideControls: true,
+                resetOnEnd: false
+            });
+
+            const videoContainer = document.getElementById("cinema-video-container");
+            const unmuteOverlay = document.getElementById("video-unmute-overlay");
+            const plyrContainerBox = document.getElementById("plyr-container-box");
+
+            // Handle the premium toggle unmute action
+            unmuteOverlay.addEventListener("click", () => {
+                player.muted = false;
+                player.volume = 0.85;
+                player.play();
+
+                plyrContainerBox.classList.remove("h-[320px]", "sm:h-[460px]", "md:h-[600px]");
+                plyrContainerBox.classList.add("h-auto", "aspect-video");
+
+                videoContainer.classList.remove("bg-video-mode");
+                videoContainer.classList.add("interactive-mode");
+                
+                gsap.to(unmuteOverlay, {
+                    opacity: 0,
+                    duration: 0.3,
+                    onComplete: () => unmuteOverlay.remove()
+                });
+            });
+
+            // Cinema Box Expansion Sequence
+            gsap.to("#cinema-video-container", {
+                maxWidth: "72rem",
+                borderRadius: "20px",
+                scrollTrigger: {
+                    trigger: "#our-work-hero",
+                    start: "top top",
+                    end: "bottom center",
+                    scrub: 1,
+                    invalidateOnRefresh: true
+                }
+            });
+
+          
+            // Standard Navigation Links / Overlay Modals Trigger Handlers
+            const menuOpenBtn = document.getElementById("menu-open-btn");
+            const menuCloseBtn = document.getElementById("menu-close-btn");
+            const mobileMenu = document.getElementById("mobile-menu");
+            const mobileLinks = document.querySelectorAll(".mobile-nav-link");
+            const mobileFooter = document.querySelector(".mobile-nav-footer");
+
+            const demoModal = document.getElementById("demo-modal");
+            const modalCard = document.getElementById("modal-card");
+            const modalCloseBtn = document.getElementById("modal-close-btn");
+            const openDemoTriggers = document.querySelectorAll(".open-demo-trigger");
+
+            const menuTl = gsap.timeline({ paused: true });
+            menuTl.set(mobileMenu, { display: "flex" }) 
+                  .to(mobileMenu, { opacity: 1, duration: 0.35, ease: "power2.out" })
+                  .fromTo(mobileLinks, { y: 25, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.08, duration: 0.35, ease: "power2.out" }, "-=0.15")
+                  .fromTo(mobileFooter, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, "-=0.15");
+
+            menuOpenBtn.addEventListener("click", () => {
+                document.body.style.overflow = "hidden";
+                menuTl.play();
+            });
+            menuCloseBtn.addEventListener("click", () => {
+                document.body.style.overflow = "auto";
+                menuTl.reverse();
+            });
+
+            const modalTl = gsap.timeline({ paused: true });
+            modalTl.set(demoModal, { display: "flex" })
+                   .to(demoModal, { opacity: 1, duration: 0.3, ease: "power1.out" })
+                   .fromTo(modalCard, { opacity: 0, y: 35, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "power3.out" }, "-=0.15");
+
+            openDemoTriggers.forEach(btn => {
+                btn.addEventListener("click", () => {
+                    if (mobileMenu.style.display === "flex") menuTl.reverse();
+                    document.body.style.overflow = "hidden"; 
+                    modalTl.play();
+                });
+            });
+
+            modalCloseBtn.addEventListener("click", () => {
+                document.body.style.overflow = "auto";
+                modalTl.reverse();
+            });
+            demoModal.addEventListener("click", (e) => {
+                if (e.target === demoModal) {
+                    document.body.style.overflow = "auto";
+                    modalTl.reverse();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
