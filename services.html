@@ -197,33 +197,44 @@
     </header>
 
   
-    <section class="w-full min-h-screen relative flex items-center justify-start py-32 px-6 sm:px-12 lg:px-24 bg-black overflow-hidden">
+  <section class="w-full min-h-screen relative flex items-center justify-start py-32 px-6 sm:px-12 lg:px-24 bg-black overflow-hidden">
     
+    <!-- BACKGROUND IMAGE LAYER -->
     <div class="absolute inset-0 z-0 select-none pointer-events-none">
-        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1742&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+        <img src="assets/img/services_hero.png" 
              alt="Square One Creative Space Backdrop" 
-             class="w-full h-full object-cover object-center block">
+             class="w-full h-full object-cover object-center block opacity-60 md:opacity-70">
+        
+        <!-- HIGH-END CINEMATIC GRADIENT OVERLAY (Fixes Contrast and Readability) -->
+        <!-- Left side heavy black for solid text contrast, fading smoothly to dark transparency on the right -->
+        <div class="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-black/20 lg:from-black lg:via-black/70 lg:to-transparent"></div>
+        <!-- Bottom vignette to bleed smoothly into the next section -->
+        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
     </div>
 
+    <!-- CONTENT LAYER (Z-20 keeps it safely on top of overlays) -->
     <div class="w-full max-w-4xl relative z-20 text-left space-y-6">
         
-        <div class="text-white text-xs sm:text-sm font-bold tracking-[0.25em] uppercase pl-0.5">
+        <!-- Kicker -->
+        <div class="text-[#ccf799] text-xs sm:text-sm font-semibold tracking-[0.25em] uppercase pl-0.5">
             Creative Services
         </div>
 
         <div class="space-y-6">
-            <h1 class="text-4xl sm:text-6xl lg:text-7xl xl:text-[80px] font-normal tracking-tight text-white leading-[1.05] max-w-3xl">
-                Design services for ambitious brands
+            <!-- Heading (Tweaked with font-light & custom italic for Square One signature feel) -->
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl xl:text-[80px] font-light tracking-tight text-white leading-[1.05] max-w-3xl">
+                Design services for <br class="hidden sm:inline"><span class="italic font-serif text-zinc-300">ambitious brands</span>
             </h1>
             
-            <p class="text-base sm:text-xl text-white font-normal leading-relaxed max-w-2xl">
-                Teams at fast-growing companies use Square one to get quality graphic design done at scale. Book a call today and get acess to your dedicated design team.
-
+            <!-- Paragraph (Shifted from full white to zinc-300 for premium editorial balance) -->
+            <p class="text-lg sm:text-xl text-zinc-300 font-normal leading-relaxed max-w-2xl">
+                Teams at fast-growing companies use Square One to get quality graphic design done at scale. Book a call today and get access to your dedicated design team.
             </p>
         </div>
 
+        <!-- Action Module -->
         <div class="pt-4">
-            <button class="open-demo-trigger inline-flex items-center justify-center bg-white text-black font-bold px-8 py-4 rounded-full text-sm sm:text-base hover:bg-neutral-200 transition duration-300 shadow-xl tracking-wide">
+            <button class="open-demo-trigger inline-flex items-center justify-center bg-[#ccf799] text-black font-bold px-8 py-4 rounded-full text-sm sm:text-base hover:bg-[#bfe68a] transition-all duration-300 shadow-xl tracking-wide transform hover:-translate-y-0.5">
                 Book a demo
             </button>
         </div>
@@ -768,11 +779,170 @@
         }
     });
 </script>
+
+<section class="w-full bg-[#F4F4F4] text-black py-24 px-6 sm:px-12 lg:px-24 border-t border-zinc-200">
+    <div class="max-w-7xl mx-auto">
+        
+        <!-- FAQ HEADER -->
+        <div class="mb-16 text-left space-y-2">
+            <span class="text-xs font-bold tracking-[0.25em] uppercase text-zinc-500 block">FAQS</span>
+            <h2 class="text-4xl sm:text-5xl lg:text-6xl font-normal tracking-tight text-black leading-none">
+                Frequently asked <span class="italic font-serif font-light text-zinc-600">questions</span>
+            </h2>
+        </div>
+
+        <!-- FAQ TWO-COLUMN GRID -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-16 xl:gap-x-24 items-start">
+            
+            <!-- LEFT COLUMN: CORE SERVICE & CAPABILITIES -->
+            <div class="space-y-0 w-full divide-y divide-zinc-300/80 border-t border-b border-zinc-300/80">
+                
+                <!-- FAQ 1 -->
+                <div class="faq-item group py-6">
+                    <button class="faq-trigger w-full flex justify-between items-center text-left focus:outline-none" aria-expanded="false">
+                        <span class="text-base sm:text-lg font-medium tracking-tight text-neutral-900 group-hover:text-zinc-600 transition-colors duration-200">What exactly does Square One cover under "Design & Code"?</span>
+                        <span class="faq-icon text-xl font-light text-zinc-400 ml-4 transform transition-transform duration-300 shrink-0">+</span>
+                    </button>
+                    <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                        <p class="pt-4 text-sm sm:text-base text-zinc-600 font-normal leading-relaxed">
+                            Unlike traditional agencies that only hand over Figma files, Square One bridges the gap completely. We cover high-end UI/UX design, brand identity, motion graphics, and premium frontend development (including custom React, Next.js, Tailwind CSS, and Webflow deployments). You get production-ready code alongside pixel-perfect design.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 2 -->
+                <div class="faq-item group py-6">
+                    <button class="faq-trigger w-full flex justify-between items-center text-left focus:outline-none" aria-expanded="false">
+                        <span class="text-base sm:text-lg font-medium tracking-tight text-neutral-900 group-hover:text-zinc-600 transition-colors duration-200">How do the revision cycles work?</span>
+                        <span class="faq-icon text-xl font-light text-zinc-400 ml-4 transform transition-transform duration-300 shrink-0">+</span>
+                    </button>
+                    <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                        <p class="pt-4 text-sm sm:text-base text-zinc-600 font-normal leading-relaxed">
+                            We believe friction slows down growth. Revisions are continuous and systematically prioritized through your dedicated Slack channel or dashboard. Once a sprint draft is delivered, you can drop inline comments, and our nodes iterate instantly. There are no corporate protocols or extra invoices for refinement loops.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 3 -->
+                <div class="faq-item group py-6">
+                    <button class="faq-trigger w-full flex justify-between items-center text-left focus:outline-none" aria-expanded="false">
+                        <span class="text-base sm:text-lg font-medium tracking-tight text-neutral-900 group-hover:text-zinc-600 transition-colors duration-200">What tech stacks and design frameworks do you support?</span>
+                        <span class="faq-icon text-xl font-light text-zinc-400 ml-4 transform transition-transform duration-300 shrink-0">+</span>
+                    </button>
+                    <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                        <p class="pt-4 text-sm sm:text-base text-zinc-600 font-normal leading-relaxed">
+                            For design, we are native to Figma, Adobe Creative Suite, and advanced 3D tooling like Blender/Spline. On the engineering side, we specialize in high-performance Web-vitals: Next.js, React, Tailwind CSS, GSAP for premium animations, and native clean JavaScript setups.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 4 -->
+                <div class="faq-item group py-6">
+                    <button class="faq-trigger w-full flex justify-between items-center text-left focus:outline-none" aria-expanded="false">
+                        <span class="text-base sm:text-lg font-medium tracking-tight text-neutral-900 group-hover:text-zinc-600 transition-colors duration-200">How fast can we onboard and see the first deliverables?</span>
+                        <span class="faq-icon text-xl font-light text-zinc-400 ml-4 transform transition-transform duration-300 shrink-0">+</span>
+                    </button>
+                    <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                        <p class="pt-4 text-sm sm:text-base text-zinc-600 font-normal leading-relaxed">
+                            Onboarding takes less than 48 hours. Right after your kick-off call, we set up your dedicated pipeline channels, digest your existing brand guidelines or asset banks, and activate the design sprint. First-look high-fidelity concepts or wireframes are typically ready within 3 to 4 business days.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- RIGHT COLUMN: PRICING, VALUE & OPERATION LOGISTICS -->
+            <div class="space-y-0 w-full divide-y divide-zinc-300/80 border-t border-b border-zinc-300/80 mt-12 lg:mt-0">
+                
+                <!-- FAQ 5 -->
+                <div class="faq-item group py-6">
+                    <button class="faq-trigger w-full flex justify-between items-center text-left focus:outline-none" aria-expanded="false">
+                        <span class="text-base sm:text-lg font-medium tracking-tight text-neutral-900 group-hover:text-zinc-600 transition-colors duration-200">Why is this better than hiring in-house design engineers?</span>
+                        <span class="faq-icon text-xl font-light text-zinc-400 ml-4 transform transition-transform duration-300 shrink-0">+</span>
+                    </button>
+                    <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                        <p class="pt-4 text-sm sm:text-base text-zinc-600 font-normal leading-relaxed">
+                            Hiring a senior UI/UX designer and a premium frontend developer costs upwards of $200k/year combined, not including onboarding friction, benefits, and management overhead. Square One gives you a fully managed, multi-disciplinary squad (designers, copywriters, and developers) for a fraction of that cost, instantly scalable.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 6 -->
+                <div class="faq-item group py-6">
+                    <button class="faq-trigger w-full flex justify-between items-center text-left focus:outline-none" aria-expanded="false">
+                        <span class="text-base sm:text-lg font-medium tracking-tight text-neutral-900 group-hover:text-zinc-600 transition-colors duration-200">What happens if my design or deployment volume fluctuates?</span>
+                        <span class="faq-icon text-xl font-light text-zinc-400 ml-4 transform transition-transform duration-300 shrink-0">+</span>
+                    </button>
+                    <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                        <p class="pt-4 text-sm sm:text-base text-zinc-600 font-normal leading-relaxed">
+                            We don't believe in "use it or lose it" retainers. Our model is built to scale alongside your product roadmap cycles. If you have a slow month, your unused operational flex budget automatically rolls over for up to 3 months, ensuring your investment is always translated directly into asset equity.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 7 -->
+                <div class="faq-item group py-6">
+                    <button class="faq-trigger w-full flex justify-between items-center text-left focus:outline-none" aria-expanded="false">
+                        <span class="text-base sm:text-lg font-medium tracking-tight text-neutral-900 group-hover:text-zinc-600 transition-colors duration-200">What is a Project Booster and when should we use it?</span>
+                        <span class="faq-icon text-xl font-light text-zinc-400 ml-4 transform transition-transform duration-300 shrink-0">+</span>
+                    </button>
+                    <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                        <p class="pt-4 text-sm sm:text-base text-zinc-600 font-normal leading-relaxed">
+                            A Project Booster is an on-demand velocity inject mechanism. If you are approaching a major funding announcement, product launch, or seasonal campaign drop and need immediate short-term bandwidth, a Booster adds secondary execution nodes to your pipeline without forcing you to change your baseline subscription tier.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 8 -->
+                <div class="faq-item group py-6">
+                    <button class="faq-trigger w-full flex justify-between items-center text-left focus:outline-none" aria-expanded="false">
+                        <span class="text-base sm:text-lg font-medium tracking-tight text-neutral-900 group-hover:text-zinc-600 transition-colors duration-200">How do you ensure enterprise data security and IP rights?</span>
+                        <span class="faq-icon text-xl font-light text-zinc-400 ml-4 transform transition-transform duration-300 shrink-0">+</span>
+                    </button>
+                    <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                        <p class="pt-4 text-sm sm:text-base text-zinc-600 font-normal leading-relaxed">
+                            100% of all code structures, source files, asset nodes, and custom elements developed by Square One are owned exclusively by you from the exact millisecond they are compiled. We operate on enterprise-grade secure internal environments and strictly adhere to non-disclosure protocols across all client ecosystems.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const faqTriggers = document.querySelectorAll(".faq-trigger");
+
+        faqTriggers.forEach(trigger => {
+            trigger.addEventListener("click", () => {
+                const item = trigger.closest(".faq-item");
+                const content = item.querySelector(".faq-content");
+                const icon = item.querySelector(".faq-icon");
+                const isExpanded = trigger.getAttribute("aria-expanded") === "true";
+
+                // Toggle logic
+                if (!isExpanded) {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                    trigger.setAttribute("aria-expanded", "true");
+                    icon.textContent = "—";
+                    icon.classList.add("rotate-180");
+                } else {
+                    content.style.maxHeight = "0px";
+                    trigger.setAttribute("aria-expanded", "false");
+                    icon.textContent = "+";
+                    icon.classList.remove("rotate-180");
+                }
+            });
+        });
+    });
+</script>
 <!-- END: LUXURY OPEN-WIDTH HERO SPLIT WITH ROI MATRIX -->
     <section id="pre-footer-cta-matrix" class="w-full bg-black text-white py-28 md:py-40 overflow-hidden border-t border-zinc-900 relative flex items-center justify-center">
     
     <div class="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden">
-        <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+        <img src="assets/img/services_hero1.png" 
              alt="Creative team workspace synergy texture" 
              class="w-full h-full object-cover object-center opacity-25 brightness-125 contrast-[1.05] filter scale-[1.02]">
         
